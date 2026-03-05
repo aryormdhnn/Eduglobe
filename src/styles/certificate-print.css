@@ -1,0 +1,31 @@
+/* Certificate Print Styles */
+@media print {
+  /* Hide everything except the certificate */
+  body * {
+    visibility: hidden;
+  }
+  
+  /* Show only the certificate container */
+  .certificate-printable,
+  .certificate-printable * {
+    visibility: visible;
+  }
+  
+  /* Position certificate for printing */
+  .certificate-printable {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+  
+  /* Remove shadows and adjust colors for print */
+  .certificate-printable {
+    box-shadow: none !important;
+  }
+  
+  /* Ensure proper page breaks */
+  .certificate-printable {
+    page-break-inside: avoid;
+  }
+}
