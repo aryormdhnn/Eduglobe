@@ -1,5 +1,5 @@
 import svgPaths from "../../imports/svg-mpum6s8vmz";
-import imgLogos4 from "figma:asset/bf159c7b13b121def6f8691466fbc6c69d1a2e71.png";
+import imgLogos4 from "../../assets/logo.png";
 
 const menuItems = [
   { label: "Dashboard", icon: "home" },
@@ -197,22 +197,20 @@ export function Sidebar() {
           {menuItems.map((item) => (
             <div
               key={item.label}
-              className={`flex items-center gap-[8px] p-[12px] rounded-[4px] w-full cursor-pointer relative ${
-                item.active
+              className={`flex items-center gap-[8px] p-[12px] rounded-[4px] w-full cursor-pointer relative ${item.active
                   ? "bg-[#f5faff]"
                   : "hover:bg-gray-50"
-              }`}
+                }`}
             >
               {item.active && (
                 <div className="absolute inset-0 border border-[#155dfc] rounded-[4px] pointer-events-none" />
               )}
               <MenuIcon icon={item.icon} />
               <span
-                className={`font-['Inter',sans-serif] text-[14px] leading-[1.5] ${
-                  item.active
+                className={`font-['Inter',sans-serif] text-[14px] leading-[1.5] ${item.active
                     ? "font-semibold text-[#155dfc]"
                     : "font-normal text-[#a3a3a3]"
-                }`}
+                  }`}
               >
                 {item.label}
               </span>

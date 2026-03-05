@@ -1,6 +1,6 @@
 import svgPaths from "./svg-mpum6s8vmz";
-import imgProfilePicture from "figma:asset/f2a6a44a8bdaef76e35d287a0160a1293e7c5dfb.png";
-import imgLogos4 from "figma:asset/bf159c7b13b121def6f8691466fbc6c69d1a2e71.png";
+import imgProfilePicture from "../assets/profile_picture.png";
+import imgLogos4 from "../assets/logo.png";
 
 function Greeting() {
   return (
@@ -174,11 +174,55 @@ function Navbar() {
   );
 }
 
+const courseModules = [
+  { number: "01", title: "Introduction to Business Communication", filled: false },
+  { number: "02", title: "Professional Writing & Email Etiquette", filled: true },
+  { number: "03", title: "Effective Meetings & Negotiation Skills", filled: false },
+  { number: "04", title: "Business Presentations & Public Speaking", filled: true },
+  { number: "05", title: "Sales, Marketing & Customer Communication", filled: false },
+  { number: "06", title: "Workplace Problem-Solving & Decision Making", filled: true },
+];
+
 function MyClasses() {
   return (
-    <div className="bg-white h-[1034px] relative rounded-[16px] shrink-0 w-full" data-name="MyClasses">
-      <div className="size-full" />
+    <div className="bg-white relative rounded-[16px] shrink-0 w-full" data-name="MyClasses">
       <div aria-hidden="true" className="absolute border border-[#f3f4f6] border-solid inset-0 pointer-events-none rounded-[16px]" />
+      <div className="relative px-[32px] py-[40px]">
+        {/* Card label */}
+        <p className="font-['Inter',sans-serif] font-normal text-[12px] text-[#a0a0a0] mb-[28px]">Card</p>
+
+        {/* Course Title */}
+        <h2 className="font-['Inter',sans-serif] font-bold text-[22px] text-black mb-[32px]">
+          Business English Course
+        </h2>
+
+        {/* Module List */}
+        <div className="flex flex-col">
+          {courseModules.map((module, index) => (
+            <div key={module.number} className="flex items-center gap-[20px] relative">
+              {/* Vertical connector line */}
+              {index < courseModules.length - 1 && (
+                <div className="absolute left-[22px] top-[48px] w-[2px] h-[calc(100%-8px)] bg-[#e8e8e8] z-0" />
+              )}
+
+              {/* Badge */}
+              <div
+                className={`relative z-10 w-[44px] h-[44px] rounded-[10px] flex items-center justify-center shrink-0 font-['Inter',sans-serif] font-semibold text-[14px] ${module.filled
+                    ? "bg-[#EF3D32] text-white border-none"
+                    : "bg-white text-[#EF3D32] border-2 border-dashed border-[#EF3D32]"
+                  }`}
+              >
+                {module.number}
+              </div>
+
+              {/* Module title */}
+              <p className="font-['Inter',sans-serif] font-semibold text-[17px] text-black py-[24px] flex-1">
+                {module.title}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

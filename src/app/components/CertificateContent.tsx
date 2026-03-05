@@ -17,58 +17,58 @@ const programs: Program[] = [
   {
     id: "1",
     number: "01",
-    title: "Beginner",
-    level: "CEFR A1",
+    title: "Introduction to Business Communication",
+    level: "Module 1",
     status: "completed",
-    completedDate: "15 Jan 2025",
-    certificateId: "CERT-2025-A1-001",
+    completedDate: "10 Jan 2025",
+    certificateId: "CERT-2025-BE-001",
   },
   {
     id: "2",
     number: "02",
-    title: "Elementary",
-    level: "CEFR A2",
+    title: "Professional Writing & Email Etiquette",
+    level: "Module 2",
     status: "completed",
-    completedDate: "20 May 2025",
-    certificateId: "CERT-2025-A2-002",
+    completedDate: "14 Feb 2025",
+    certificateId: "CERT-2025-BE-002",
   },
   {
     id: "3",
     number: "03",
-    title: "Pre-Intermediate",
-    level: "CEFR A2–B1",
+    title: "Effective Meetings & Negotiation Skills",
+    level: "Module 3",
     status: "current",
   },
   {
     id: "4",
     number: "04",
-    title: "Intermediate",
-    level: "CEFR B1",
+    title: "Business Presentations & Public Speaking",
+    level: "Module 4",
     status: "locked",
   },
   {
     id: "5",
     number: "05",
-    title: "Upper-Intermediate",
-    level: "CEFR B2",
+    title: "Sales, Marketing & Customer Communication",
+    level: "Module 5",
     status: "locked",
   },
   {
     id: "6",
     number: "06",
-    title: "Advanced",
-    level: "CEFR C1",
+    title: "Workplace Problem-Solving & Decision Making",
+    level: "Module 6",
     status: "locked",
   },
 ];
 
-function ProgramStep({ 
-  program, 
+function ProgramStep({
+  program,
   isLast,
   onViewCertificate,
   onDownloadCertificate
-}: { 
-  program: Program; 
+}: {
+  program: Program;
   isLast: boolean;
   onViewCertificate: (program: Program) => void;
   onDownloadCertificate: (program: Program) => void;
@@ -82,21 +82,19 @@ function ProgramStep({
       {/* Timeline */}
       <div className="flex flex-col items-center">
         <div
-          className={`flex items-center justify-center rounded-[10px] size-[48px] shrink-0 font-['Inter',sans-serif] font-semibold text-[16px] ${
-            isCompleted
+          className={`flex items-center justify-center rounded-[10px] size-[48px] shrink-0 font-['Inter',sans-serif] font-semibold text-[16px] ${isCompleted
               ? "bg-[#EF4444] text-white"
               : isCurrent
-              ? "bg-[#EF4444] text-white"
-              : "bg-[#FEE2E2] text-[#EF4444]"
-          }`}
+                ? "bg-[#EF4444] text-white"
+                : "bg-[#FEE2E2] text-[#EF4444]"
+            }`}
         >
           {program.number}
         </div>
         {!isLast && (
           <div
-            className={`w-[3px] flex-1 min-h-[24px] ${
-              isCompleted ? "bg-[#EF4444]" : "bg-[#FEE2E2]"
-            }`}
+            className={`w-[3px] flex-1 min-h-[24px] ${isCompleted ? "bg-[#EF4444]" : "bg-[#FEE2E2]"
+              }`}
           />
         )}
       </div>
@@ -104,20 +102,18 @@ function ProgramStep({
       {/* Content */}
       <div className={`flex-1 pb-[24px] ${isLast ? "pb-0" : ""}`}>
         <div
-          className={`rounded-[12px] p-[20px] border ${
-            isCompleted
+          className={`rounded-[12px] p-[20px] border ${isCompleted
               ? "bg-white border-[#E5E7EB]"
               : isCurrent
-              ? "bg-[#FFF7ED] border-[#FDBA74]"
-              : "bg-[#F9FAFB] border-[#F3F4F6]"
-          }`}
+                ? "bg-[#FFF7ED] border-[#FDBA74]"
+                : "bg-[#F9FAFB] border-[#F3F4F6]"
+            }`}
         >
           <div className="flex items-center justify-between">
             <div>
               <h3
-                className={`font-['Inter',sans-serif] font-semibold text-[16px] leading-[1.5] ${
-                  isLocked ? "text-[#9CA3AF]" : "text-[#111827]"
-                }`}
+                className={`font-['Inter',sans-serif] font-semibold text-[16px] leading-[1.5] ${isLocked ? "text-[#9CA3AF]" : "text-[#111827]"
+                  }`}
               >
                 {program.title} ({program.level})
               </h3>
@@ -142,7 +138,7 @@ function ProgramStep({
             </div>
             {isCompleted && (
               <div className="flex gap-[8px]">
-                <button 
+                <button
                   onClick={() => onViewCertificate(program)}
                   className="flex items-center gap-[6px] px-[12px] py-[8px] rounded-[8px] bg-[#F3F4F6] hover:bg-[#E5E7EB] transition-colors"
                 >
@@ -151,7 +147,7 @@ function ProgramStep({
                     View
                   </span>
                 </button>
-                <button 
+                <button
                   onClick={() => onDownloadCertificate(program)}
                   className="flex items-center gap-[6px] px-[12px] py-[8px] rounded-[8px] bg-[#155DFC] hover:bg-[#1249CC] transition-colors"
                 >
@@ -173,7 +169,7 @@ export function CertificateContent() {
   const [selectedTab, setSelectedTab] = useState<"all" | "completed" | "inprogress">("all");
   const [selectedCertificate, setSelectedCertificate] = useState<Program | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   // In a real application, this would come from user authentication/profile
   const studentName = "John Anderson";
 
@@ -195,7 +191,7 @@ export function CertificateContent() {
     toast.success(`Downloading certificate for ${program.title}...`, {
       description: `Certificate ID: ${program.certificateId}`,
     });
-    
+
     // In a real app, this would trigger an actual download
     console.log("Downloading certificate:", program);
   };
@@ -211,10 +207,10 @@ export function CertificateContent() {
       <div className="flex items-center justify-between mb-[24px]">
         <div>
           <h2 className="font-['Inter',sans-serif] font-semibold text-[18px] leading-[1.5] text-[#111827]">
-            Program Certificates
+            Business English Course
           </h2>
           <p className="font-['Inter',sans-serif] font-normal text-[14px] leading-[1.5] text-[#6B7280] mt-[4px]">
-            {completedCount} of {programs.length} programs completed
+            {completedCount} of {programs.length} modules completed
           </p>
         </div>
 
@@ -242,11 +238,10 @@ export function CertificateContent() {
           <button
             key={tab.key}
             onClick={() => setSelectedTab(tab.key)}
-            className={`px-[16px] py-[8px] rounded-[8px] font-['Inter',sans-serif] font-normal text-[14px] transition-colors ${
-              selectedTab === tab.key
+            className={`px-[16px] py-[8px] rounded-[8px] font-['Inter',sans-serif] font-normal text-[14px] transition-colors ${selectedTab === tab.key
                 ? "bg-white text-[#111827] shadow-sm"
                 : "text-[#6B7280] hover:text-[#374151]"
-            }`}
+              }`}
           >
             {tab.label}
           </button>

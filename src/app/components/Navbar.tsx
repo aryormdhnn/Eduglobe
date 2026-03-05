@@ -1,5 +1,5 @@
 import svgPaths from "../../imports/svg-mpum6s8vmz";
-import imgProfilePicture from "figma:asset/f2a6a44a8bdaef76e35d287a0160a1293e7c5dfb.png";
+import imgProfilePicture from "../../assets/profile_picture.png";
 
 export function Navbar() {
   return (
