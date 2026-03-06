@@ -8,11 +8,13 @@ import { AdminNavbar } from "./components/admin/AdminNavbar";
 import { AdminStudentContent } from "./components/admin/AdminStudentContent";
 import { AdminCertificateContent } from "./components/admin/AdminCertificateContent";
 import { AdminCreateCertificateContent } from "./components/admin/AdminCreateCertificateContent";
+import { AdminProgressReportContent } from "./components/admin/AdminProgressReportContent";
 
 const adminPageTitles: Record<string, string> = {
   students: "Students",
   certificate: "Certificate",
   "create-certificate": "Issue New Certificate",
+  "progress-report": "Progress Reports",
 };
 
 export default function App() {
@@ -60,6 +62,11 @@ export default function App() {
             )}
             {adminPage === "create-certificate" && (
               <AdminCreateCertificateContent
+                onBack={() => setAdminPage("certificate")}
+              />
+            )}
+            {adminPage === "progress-report" && (
+              <AdminProgressReportContent
                 onBack={() => setAdminPage("certificate")}
               />
             )}

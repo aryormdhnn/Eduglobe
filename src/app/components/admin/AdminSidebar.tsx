@@ -15,6 +15,7 @@ import {
     Megaphone,
     FlaskConical,
     BarChart2,
+    BarChart3,
     Leaf,
     Award,
     Settings,
@@ -43,6 +44,7 @@ const menuItems: MenuItem[] = [
     { label: "Payment", icon: <CreditCard size={18} /> },
     { label: "Anouncement", icon: <Megaphone size={18} /> },
     { label: "Certificate", icon: <Award size={18} />, page: "certificate" },
+    { label: "Progress Report", icon: <BarChart3 size={18} />, page: "progress-report" },
     { label: "Evaluation Test", icon: <FlaskConical size={18} /> },
     { label: "Reports", icon: <BarChart2 size={18} /> },
     { label: "Student Plant", icon: <Leaf size={18} /> },
@@ -83,8 +85,8 @@ export function AdminSidebar({ activePage, onNavigate }: AdminSidebarProps) {
                                 key={item.label}
                                 onClick={() => item.page && onNavigate(item.page)}
                                 className={`flex items-center justify-between px-[16px] py-[10px] text-left transition-colors ${isActive
-                                        ? "bg-[#EFF6FF] text-[#155DFC] font-semibold"
-                                        : "text-[#6B7280] hover:bg-[#f9fafb] hover:text-[#374151]"
+                                    ? "bg-[#EFF6FF] text-[#155DFC] font-semibold"
+                                    : "text-[#6B7280] hover:bg-[#f9fafb] hover:text-[#374151]"
                                     }`}
                             >
                                 <div className="flex items-center gap-[10px]">
