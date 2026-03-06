@@ -11,7 +11,9 @@ import {
     ChevronRight,
     Plus,
     X,
+    Printer,
 } from "lucide-react";
+import { getReportByEnrollmentId, gradesKey } from "../../data/studentReports";
 
 interface CertRecord {
     id: number;
@@ -50,43 +52,194 @@ interface PreviewModalProps {
 }
 
 function CertificatePreviewModal({ cert, onClose }: PreviewModalProps) {
+    const report = getReportByEnrollmentId(cert.enrollmentId);
+
     return (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-[24px]" onClick={onClose}>
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-start justify-center p-[24px] overflow-y-auto" onClick={onClose}>
             <div
-                className="bg-white rounded-[16px] w-full max-w-[640px] overflow-hidden shadow-2xl"
+                className="bg-white w-full max-w-[720px] rounded-[12px] overflow-hidden shadow-2xl my-[24px]"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Certificate Visual */}
-                <div className="bg-gradient-to-br from-[#155DFC] to-[#0D3FA8] p-[40px] text-white text-center relative overflow-hidden">
-                    <div className="absolute top-[-30px] right-[-30px] size-[120px] rounded-full bg-white/5" />
-                    <div className="absolute bottom-[-20px] left-[-20px] size-[80px] rounded-full bg-white/5" />
-                    <Award size={48} className="mx-auto mb-[16px] text-yellow-300" />
-                    <p className="font-['Inter',sans-serif] text-[12px] uppercase tracking-[3px] text-blue-200 mb-[8px]">Certificate of Completion</p>
-                    <h2 className="font-['Inter',sans-serif] font-bold text-[22px] mb-[8px]">This is to certify that</h2>
-                    <h1 className="font-['Inter',sans-serif] font-bold text-[30px] text-yellow-300 mb-[16px]">{cert.studentName}</h1>
-                    <p className="font-['Inter',sans-serif] text-[14px] text-blue-100 mb-[4px]">has successfully completed</p>
-                    <p className="font-['Inter',sans-serif] font-semibold text-[16px]">{cert.module}</p>
-                    <p className="font-['Inter',sans-serif] text-[13px] text-blue-200 mt-[4px]">{cert.course}</p>
-                    <div className="mt-[24px] flex justify-center gap-[40px] text-[12px] text-blue-200">
-                        <div>
-                            <p className="text-white font-semibold">Issue Date</p>
-                            <p>{cert.issueDate}</p>
-                        </div>
-                        <div>
-                            <p className="text-white font-semibold">Certificate ID</p>
-                            <p>{cert.certificateId}</p>
-                        </div>
+                {/* Modal toolbar */}
+                <div className="flex items-center justify-between px-[24px] py-[14px] border-b border-[#E5E7EB]">
+                    <p className="font-['Inter',sans-serif] font-semibold text-[15px] text-[#111827]">
+                        Certificate &amp; Progress Report
+                    </p>
+                    <div className="flex items-center gap-[8px]">
+                        <button
+                            onClick={() => window.print()}
+                            className="flex items-center gap-[6px] px-[12px] py-[7px] bg-[#F9FAFB] border border-[#E5E7EB] rounded-[7px] hover:bg-[#F3F4F6] transition-colors"
+                        >
+                            <Printer size={15} className="text-[#374151]" />
+                            <span className="font-['Inter',sans-serif] text-[13px] font-semibold text-[#374151]">Print</span>
+                        </button>
+                        <button
+                            className="flex items-center gap-[6px] px-[12px] py-[7px] bg-[#155DFC] hover:bg-[#1249CC] rounded-[7px] transition-colors"
+                        >
+                            <Download size={15} className="text-white" />
+                            <span className="font-['Inter',sans-serif] text-[13px] font-semibold text-white">Download PDF</span>
+                        </button>
+                        <button onClick={onClose} className="flex items-center justify-center size-[34px] rounded-[7px] hover:bg-[#F3F4F6] transition-colors">
+                            <X size={18} className="text-[#6B7280]" />
+                        </button>
                     </div>
                 </div>
-                {/* Actions */}
-                <div className="flex items-center justify-between px-[24px] py-[16px]">
-                    <button onClick={onClose} className="font-['Inter',sans-serif] text-[14px] text-[#6B7280] hover:text-[#374151]">
-                        Close
-                    </button>
-                    <button className="flex items-center gap-[8px] bg-[#155DFC] hover:bg-[#1249CC] text-white px-[20px] py-[10px] rounded-[8px] font-['Inter',sans-serif] font-semibold text-[14px] transition-colors">
-                        <Download size={16} />
-                        Download PDF
-                    </button>
+
+                <div className="p-[32px] space-y-[32px]">
+                    {/* ── DOCUMENT 1: CERTIFICATE ── */}
+                    <div>
+                        <p className="font-['Inter',sans-serif] font-semibold text-[12px] text-[#9CA3AF] uppercase tracking-wider mb-[12px]">
+                            01 — Certificate of Completion
+                        </p>
+                        <div className="bg-gradient-to-br from-[#155DFC] to-[#0D3FA8] p-[40px] text-white text-center relative overflow-hidden rounded-[12px]">
+                            <div className="absolute top-[-30px] right-[-30px] size-[120px] rounded-full bg-white/5" />
+                            <div className="absolute bottom-[-20px] left-[-20px] size-[80px] rounded-full bg-white/5" />
+                            <Award size={48} className="mx-auto mb-[16px] text-yellow-300" />
+                            <p className="font-['Inter',sans-serif] text-[11px] uppercase tracking-[3px] text-blue-200 mb-[8px]">
+                                Certificate of Completion
+                            </p>
+                            <p className="font-['Inter',sans-serif] font-bold text-[18px] mb-[8px]">This is to certify that</p>
+                            <h1 className="font-['Inter',sans-serif] font-bold text-[30px] text-yellow-300 mb-[16px]">
+                                {cert.studentName}
+                            </h1>
+                            <p className="font-['Inter',sans-serif] text-[14px] text-blue-100 mb-[4px]">has successfully completed</p>
+                            <p className="font-['Inter',sans-serif] font-semibold text-[16px]">{cert.module}</p>
+                            <p className="font-['Inter',sans-serif] text-[13px] text-blue-200 mt-[4px]">{cert.course}</p>
+                            <div className="mt-[24px] flex justify-center gap-[40px] text-[12px] text-blue-200 border-t border-white/20 pt-[16px]">
+                                <div>
+                                    <p className="text-white font-semibold mb-[2px]">Issue Date</p>
+                                    <p>{cert.issueDate}</p>
+                                </div>
+                                <div>
+                                    <p className="text-white font-semibold mb-[2px]">Expiry Date</p>
+                                    <p>{cert.expiryDate}</p>
+                                </div>
+                                <div>
+                                    <p className="text-white font-semibold mb-[2px]">Certificate ID</p>
+                                    <p>{cert.certificateId}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="flex items-center gap-[12px]">
+                        <div className="flex-1 h-[1px] bg-[#E5E7EB]" />
+                        <span className="font-['Inter',sans-serif] text-[12px] text-[#9CA3AF] font-medium">Progress Report</span>
+                        <div className="flex-1 h-[1px] bg-[#E5E7EB]" />
+                    </div>
+
+                    {/* ── DOCUMENT 2: PROGRESS REPORT ── */}
+                    {report ? (
+                        <div>
+                            <p className="font-['Inter',sans-serif] font-semibold text-[12px] text-[#9CA3AF] uppercase tracking-wider mb-[12px]">
+                                02 — Progress Report
+                            </p>
+                            <div className="border border-[#E5E7EB] rounded-[12px] p-[32px] bg-white">
+                                {/* Report Header */}
+                                <div className="flex items-start justify-between mb-[28px]">
+                                    <h2 className="font-['Inter',sans-serif] font-black text-[22px] text-[#F97316] uppercase tracking-wide">
+                                        PROGRESS REPORT
+                                    </h2>
+                                    <div className="flex items-center gap-[10px]">
+                                        <div className="border-2 border-[#F97316] rounded-[8px] px-[12px] py-[6px] flex items-center justify-center">
+                                            <Award size={22} className="text-[#F97316]" />
+                                        </div>
+                                        <div>
+                                            <p className="font-['Inter',sans-serif] font-bold text-[13px] text-[#111827]">EduGlobe</p>
+                                            <p className="font-['Inter',sans-serif] text-[11px] text-[#6B7280]">Language Centres</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Student info */}
+                                <div className="mb-[24px]">
+                                    <h3 className="font-['Inter',sans-serif] font-black text-[18px] text-[#111827] mb-[2px]">
+                                        {report.name.toUpperCase()}
+                                    </h3>
+                                    <p className="font-['Inter',sans-serif] text-[12px] text-[#6B7280] mb-[14px]">
+                                        STUDENT ID: {report.studentId}
+                                    </p>
+                                    <div className="grid grid-cols-[auto_1fr] gap-x-[12px] gap-y-[5px] max-w-[420px]">
+                                        {[
+                                            { label: "Nationality", value: report.nationality },
+                                            { label: "Programme", value: report.programme },
+                                            { label: "Session", value: report.session },
+                                            { label: "Dates", value: report.dates },
+                                            { label: "Level", value: report.level },
+                                            { label: "Centre", value: report.centre },
+                                        ].map((row) => (
+                                            <div key={row.label} className="contents">
+                                                <span className="bg-[#4B5563] text-white font-['Inter',sans-serif] text-[10px] font-semibold px-[8px] py-[2px] rounded-[3px] whitespace-nowrap self-center">
+                                                    {row.label}
+                                                </span>
+                                                <span className="font-['Inter',sans-serif] text-[12px] text-[#374151] self-center">{row.value}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Grade section header */}
+                                <div className="bg-[#9CA3AF] px-[14px] py-[6px] rounded-t-[4px]">
+                                    <h4 className="font-['Inter',sans-serif] font-semibold text-[13px] text-white">
+                                        Grade Result and Attendance
+                                    </h4>
+                                </div>
+
+                                {/* Table + grades key side by side */}
+                                <div className="flex gap-[24px] items-start">
+                                    <div className="flex-1">
+                                        <table className="w-full border-collapse border border-[#D1D5DB]">
+                                            <thead>
+                                                <tr className="bg-[#F9FAFB]">
+                                                    {["Class", "Teacher", "Grade", "Attendance"].map((col) => (
+                                                        <th key={col} className="border border-[#D1D5DB] px-[10px] py-[7px] font-['Inter',sans-serif] font-semibold text-[11px] text-[#374151] text-center">
+                                                            {col}
+                                                        </th>
+                                                    ))}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {report.subjects.map((subj, i) => (
+                                                    <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-[#FAFAFA]"}>
+                                                        <td className="border border-[#D1D5DB] px-[10px] py-[7px] font-['Inter',sans-serif] text-[11px] text-[#374151]">{subj.className}</td>
+                                                        <td className="border border-[#D1D5DB] px-[10px] py-[7px] font-['Inter',sans-serif] text-[11px] text-[#374151] text-center whitespace-nowrap">{subj.teacher}</td>
+                                                        <td className="border border-[#D1D5DB] px-[10px] py-[7px] font-['Inter',sans-serif] font-bold text-[11px] text-center">{subj.grade}</td>
+                                                        <td className="border border-[#D1D5DB] px-[10px] py-[7px] font-['Inter',sans-serif] text-[11px] text-center">{subj.attendance}</td>
+                                                    </tr>
+                                                ))}
+                                                <tr><td colSpan={4} className="border border-[#D1D5DB] py-[6px]" /></tr>
+                                                <tr className="bg-[#F3F4F6]">
+                                                    <td colSpan={2} className="border border-[#D1D5DB] px-[10px] py-[7px] font-['Inter',sans-serif] font-bold text-[11px] text-[#111827]">
+                                                        Overall Result &amp; Attendance
+                                                    </td>
+                                                    <td className="border border-[#D1D5DB] px-[10px] py-[7px] font-['Inter',sans-serif] font-bold text-[11px] text-center">({report.overallResult})</td>
+                                                    <td className="border border-[#D1D5DB] px-[10px] py-[7px] font-['Inter',sans-serif] font-bold text-[11px] text-center">{report.overallAttendance}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {/* Grades key */}
+                                    <div className="shrink-0 min-w-[160px] pt-[2px]">
+                                        <p className="font-['Inter',sans-serif] font-bold text-[10px] text-[#111827] mb-[6px] text-center tracking-wide">GRADES / RESULTS</p>
+                                        <div className="space-y-[3px]">
+                                            {gradesKey.map((g) => (
+                                                <div key={g.letter} className="flex items-center gap-[6px]">
+                                                    <span className="font-['Inter',sans-serif] text-[10px] text-[#6B7280] w-[64px]">{g.range}</span>
+                                                    <span className="font-['Inter',sans-serif] font-bold text-[10px] text-[#111827] w-[12px]">{g.letter}</span>
+                                                    <span className="font-['Inter',sans-serif] text-[10px] text-[#374151]">{g.label}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="border border-dashed border-[#E5E7EB] rounded-[12px] p-[32px] text-center">
+                            <p className="font-['Inter',sans-serif] text-[14px] text-[#9CA3AF]">No progress report found for this student.</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
@@ -165,7 +318,6 @@ export function AdminCertificateContent({ onCreateCertificate }: AdminCertificat
                 <div className="bg-white rounded-[12px] border border-[#F3F4F6]">
                     {/* Filters */}
                     <div className="flex items-center justify-between px-[20px] py-[16px] border-b border-[#F3F4F6] gap-[12px] flex-wrap">
-                        {/* Status tabs */}
                         <div className="flex items-center gap-[4px] bg-[#F3F4F6] p-[4px] rounded-[10px]">
                             {(["all", "issued", "pending", "expired"] as const).map((s) => (
                                 <button
@@ -180,7 +332,6 @@ export function AdminCertificateContent({ onCreateCertificate }: AdminCertificat
                                 </button>
                             ))}
                         </div>
-                        {/* Search + filter */}
                         <div className="flex items-center gap-[10px]">
                             <div className="bg-[#f6f6f6] flex items-center gap-[8px] px-[12px] py-[8px] rounded-full w-[220px]">
                                 <Search size={14} className="text-[#a0a0a0] shrink-0" />
@@ -282,8 +433,7 @@ export function AdminCertificateContent({ onCreateCertificate }: AdminCertificat
                                 <button
                                     key={p}
                                     onClick={() => setCurrentPage(p)}
-                                    className={`size-[32px] flex items-center justify-center rounded-[6px] font-['Inter',sans-serif] text-[13px] transition-colors ${currentPage === p ? "bg-[#155DFC] text-white" : "text-[#374151] hover:bg-[#F3F4F6]"
-                                        }`}
+                                    className={`size-[32px] flex items-center justify-center rounded-[6px] font-['Inter',sans-serif] text-[13px] transition-colors ${currentPage === p ? "bg-[#155DFC] text-white" : "text-[#374151] hover:bg-[#F3F4F6]"}`}
                                 >
                                     {p}
                                 </button>
@@ -293,8 +443,7 @@ export function AdminCertificateContent({ onCreateCertificate }: AdminCertificat
                                 <button
                                     key={p}
                                     onClick={() => setCurrentPage(p)}
-                                    className={`size-[32px] flex items-center justify-center rounded-[6px] font-['Inter',sans-serif] text-[13px] transition-colors ${currentPage === p ? "bg-[#155DFC] text-white" : "text-[#374151] hover:bg-[#F3F4F6]"
-                                        }`}
+                                    className={`size-[32px] flex items-center justify-center rounded-[6px] font-['Inter',sans-serif] text-[13px] transition-colors ${currentPage === p ? "bg-[#155DFC] text-white" : "text-[#374151] hover:bg-[#F3F4F6]"}`}
                                 >
                                     {p}
                                 </button>
