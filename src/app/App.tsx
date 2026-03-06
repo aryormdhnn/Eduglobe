@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { Sidebar } from "./components/Sidebar";
-import { Navbar } from "./components/Navbar";
-import { CertificateContent } from "./components/CertificateContent";
+import { Sidebar } from "./components/student/Sidebar";
+import { Navbar } from "./components/student/Navbar";
+import { CertificateContent } from "./components/student/CertificateContent";
 import { Toaster } from "./components/ui/sonner";
-import { AdminSidebar } from "./components/AdminSidebar";
-import { AdminNavbar } from "./components/AdminNavbar";
-import { AdminStudentContent } from "./components/AdminStudentContent";
-import { AdminCertificateContent } from "./components/AdminCertificateContent";
+import { AdminSidebar } from "./components/admin/AdminSidebar";
+import { AdminNavbar } from "./components/admin/AdminNavbar";
+import { AdminStudentContent } from "./components/admin/AdminStudentContent";
+import { AdminCertificateContent } from "./components/admin/AdminCertificateContent";
+import { AdminCreateCertificateContent } from "./components/admin/AdminCreateCertificateContent";
 
 const adminPageTitles: Record<string, string> = {
   students: "Students",
   certificate: "Certificate",
+  "create-certificate": "Issue New Certificate",
 };
 
 export default function App() {
@@ -51,7 +53,16 @@ export default function App() {
           <AdminNavbar title={adminPageTitles[adminPage] ?? "Admin"} />
           <div className="ml-[200px] pt-[64px] p-[24px] bg-[#F9FAFB] min-h-screen">
             {adminPage === "students" && <AdminStudentContent />}
-            {adminPage === "certificate" && <AdminCertificateContent />}
+            {adminPage === "certificate" && (
+              <AdminCertificateContent
+                onCreateCertificate={() => setAdminPage("create-certificate")}
+              />
+            )}
+            {adminPage === "create-certificate" && (
+              <AdminCreateCertificateContent
+                onBack={() => setAdminPage("certificate")}
+              />
+            )}
           </div>
         </>
       )}
@@ -60,4 +71,3 @@ export default function App() {
     </div>
   );
 }
-

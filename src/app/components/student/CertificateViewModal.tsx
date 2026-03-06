@@ -2,7 +2,7 @@ import { Download, X, Award, CheckCircle2, Printer } from "lucide-react";
 import {
   Dialog,
   DialogContent,
-} from "./ui/dialog";
+} from "../ui/dialog";
 
 interface CertificateViewModalProps {
   isOpen: boolean;

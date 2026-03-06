@@ -1,4 +1,4 @@
-import imgProfilePicture from "../../assets/profile_picture.png";
+import imgProfilePicture from "../../../assets/profile_picture.png";
 import { Search, Bell, ChevronDown } from "lucide-react";
 
 interface AdminNavbarProps {

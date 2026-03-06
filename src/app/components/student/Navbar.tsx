@@ -1,5 +1,5 @@
-import svgPaths from "../../imports/svg-mpum6s8vmz";
-import imgProfilePicture from "../../assets/profile_picture.png";
+import svgPaths from "../../../imports/svg-mpum6s8vmz";
+import imgProfilePicture from "../../../assets/profile_picture.png";
 
 export function Navbar() {
   return (

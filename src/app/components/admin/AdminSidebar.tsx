@@ -1,4 +1,4 @@
-import imgLogos4 from "../../assets/logo.png";
+import imgLogos4 from "../../../assets/logo.png";
 import {
     LayoutDashboard,
     HelpCircle,

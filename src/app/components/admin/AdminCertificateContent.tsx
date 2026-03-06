@@ -93,7 +93,11 @@ function CertificatePreviewModal({ cert, onClose }: PreviewModalProps) {
     );
 }
 
-export function AdminCertificateContent() {
+interface AdminCertificateContentProps {
+    onCreateCertificate: () => void;
+}
+
+export function AdminCertificateContent({ onCreateCertificate }: AdminCertificateContentProps) {
     const [search, setSearch] = useState("");
     const [filterStatus, setFilterStatus] = useState<"all" | "issued" | "pending" | "expired">("all");
     const [currentPage, setCurrentPage] = useState(1);
@@ -128,7 +132,7 @@ export function AdminCertificateContent() {
                         </p>
                     </div>
                     <div className="flex items-center gap-[10px]">
-                        <button className="flex items-center gap-[8px] bg-[#155DFC] hover:bg-[#1249CC] transition-colors text-white px-[16px] py-[10px] rounded-[8px] font-['Inter',sans-serif] font-semibold text-[14px]">
+                        <button onClick={onCreateCertificate} className="flex items-center gap-[8px] bg-[#155DFC] hover:bg-[#1249CC] transition-colors text-white px-[16px] py-[10px] rounded-[8px] font-['Inter',sans-serif] font-semibold text-[14px]">
                             <Plus size={16} />
                             Issue Certificate
                         </button>
@@ -168,8 +172,8 @@ export function AdminCertificateContent() {
                                     key={s}
                                     onClick={() => setFilterStatus(s)}
                                     className={`px-[14px] py-[7px] rounded-[7px] font-['Inter',sans-serif] text-[13px] capitalize transition-colors ${filterStatus === s
-                                            ? "bg-white text-[#111827] font-semibold shadow-sm"
-                                            : "text-[#6B7280] hover:text-[#374151]"
+                                        ? "bg-white text-[#111827] font-semibold shadow-sm"
+                                        : "text-[#6B7280] hover:text-[#374151]"
                                         }`}
                                 >
                                     {s === "all" ? "All" : s.charAt(0).toUpperCase() + s.slice(1)}
@@ -244,7 +248,7 @@ export function AdminCertificateContent() {
                                                         </>
                                                     )}
                                                     {cert.status === "pending" && (
-                                                        <button className="flex items-center gap-[4px] px-[10px] py-[6px] rounded-[6px] bg-[#155DFC] hover:bg-[#1249CC] transition-colors">
+                                                        <button onClick={onCreateCertificate} className="flex items-center gap-[4px] px-[10px] py-[6px] rounded-[6px] bg-[#155DFC] hover:bg-[#1249CC] transition-colors">
                                                             <Award size={13} className="text-white" />
                                                             <span className="font-['Inter',sans-serif] text-[12px] text-white">Issue</span>
                                                         </button>

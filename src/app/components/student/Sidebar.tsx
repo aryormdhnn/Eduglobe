@@ -1,5 +1,5 @@
-import svgPaths from "../../imports/svg-mpum6s8vmz";
-import imgLogos4 from "../../assets/logo.png";
+import svgPaths from "../../../imports/svg-mpum6s8vmz";
+import imgLogos4 from "../../../assets/logo.png";
 
 const menuItems = [
   { label: "Dashboard", icon: "home" },
