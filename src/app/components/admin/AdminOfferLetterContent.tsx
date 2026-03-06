@@ -45,144 +45,167 @@ function OfferLetterPreview({ letter, onClose }: { letter: OfferLetterRecord; on
 
     return (
         <div className="fixed inset-0 bg-black/70 z-50 flex items-start justify-center p-[24px] overflow-y-auto" onClick={onClose}>
-            <div className="bg-white w-full max-w-[720px] rounded-[12px] shadow-2xl my-[20px]" onClick={(e) => e.stopPropagation()}>
-                {/* Modal toolbar */}
-                <div className="flex items-center justify-between px-[24px] py-[14px] border-b border-[#E5E7EB] print:hidden">
+            <div className="bg-white w-full max-w-[794px] min-h-[1123px] relative shadow-2xl my-[20px] mx-auto overflow-hidden print:m-0 print:shadow-none print:w-full" onClick={(e) => e.stopPropagation()}>
+                {/* Modal toolbar (hidden in print) */}
+                <div className="flex items-center justify-between px-[24px] py-[14px] border-b border-[#E5E7EB] print:hidden bg-white relative z-50">
                     <span className="font-['Inter',sans-serif] font-semibold text-[14px] text-[#111827]">Offer Letter Preview</span>
                     <div className="flex items-center gap-[8px]">
                         <button onClick={handlePrint} className="flex items-center gap-[6px] px-[14px] py-[8px] bg-[#155DFC] hover:bg-[#1249CC] rounded-[8px] font-['Inter',sans-serif] font-semibold text-[13px] text-white transition-colors">
-                            <Download size={14} />Print / Save
+                            <Download size={14} />Print
                         </button>
                         <button onClick={onClose} className="size-[34px] flex items-center justify-center rounded-[6px] hover:bg-[#F3F4F6] transition-colors"><X size={16} className="text-[#6B7280]" /></button>
                     </div>
                 </div>
 
-                {/* Letter content */}
-                <div className="p-[48px] font-['Times_New_Roman',serif]" id="offer-letter-print">
-                    {/* Letterhead */}
-                    <div className="flex items-start justify-between mb-[32px]">
-                        <div>
-                            <h1 className="font-['Inter',sans-serif] font-black text-[22px] text-[#155DFC] tracking-wide">EduGlobe</h1>
-                            <p className="font-['Inter',sans-serif] text-[11px] text-[#6B7280] leading-[1.8]">
-                                Language Centre of Excellence<br />
-                                Kuala Lumpur, Malaysia<br />
-                                Tel: +60 3-1234 5678 | info@eduglobe.com.my
-                            </p>
-                        </div>
-                        <div className="text-right">
-                            <div className="inline-block border border-[#E5E7EB] rounded-[8px] px-[14px] py-[10px]">
-                                <p className="font-['Inter',sans-serif] text-[11px] text-[#9CA3AF]">Reference No.</p>
-                                <p className="font-['Inter',sans-serif] font-bold text-[13px] text-[#111827]">{letter.refNo}</p>
-                                <p className="font-['Inter',sans-serif] text-[11px] text-[#9CA3AF] mt-[4px]">Issue Date: {letter.issuedDate}</p>
+                {/* --- Letter PDF Content --- */}
+                <div className="relative w-full h-full bg-white print:p-0" id="offer-letter-print">
+
+                    {/* Top Right Decorative Shapes */}
+                    <div className="absolute top-0 right-0 w-[400px] h-[250px] overflow-hidden pointer-events-none">
+                        <div className="absolute top-[-40px] right-[-20px] w-[200px] h-[200px] bg-[#FDE6D5] rounded-full opacity-70"></div> {/* Light orange */}
+                        <div className="absolute top-[20px] right-[-60px] w-[250px] h-[250px] bg-[#CBE9FB] rounded-tl-full opacity-80"></div> {/* Light blue */}
+                        <div className="absolute top-[40px] right-[120px] w-[220px] h-[220px] bg-[#E1F3D8] rounded-tl-[100px] rounded-bl-[100px] rounded-tr-[100px] opacity-90"></div> {/* Light green */}
+                    </div>
+
+                    {/* Bottom Decorative Shapes */}
+                    <div className="absolute bottom-0 left-0 w-full h-[60px] flex items-end overflow-hidden pointer-events-none">
+                        <div className="w-[10%] h-[60px] bg-[#F97316] rounded-tr-full"></div>
+                        <div className="w-[15%] h-[60px] bg-[#0EA5E9] rounded-t-full -ml-[2%] translate-y-[20px]"></div>
+                        <div className="w-[15%] h-[60px] bg-[#0284C7] rounded-tl-full -ml-[2%]"></div>
+                        <div className="w-[18%] h-[60px] bg-[#4ADE80] rounded-t-full -ml-[2%] translate-y-[10px]"></div>
+                        <div className="w-[15%] h-[60px] bg-[#0284C7] rounded-tr-full -ml-[2%]"></div>
+                        <div className="w-[15%] h-[60px] bg-[#22C55E] rounded-tl-full -ml-[2%] translate-y-[15px]"></div>
+                        <div className="w-[16%] h-[60px] bg-[#0EA5E9] rounded-t-full -ml-[2%]"></div>
+                    </div>
+
+                    <div className="px-[60px] pt-[70px] pb-[100px] relative z-10 font-['Inter',sans-serif]">
+                        {/* Header Details */}
+                        <div className="flex justify-between items-start mb-[50px]">
+                            {/* Logo */}
+                            <div className="flex items-center gap-[12px]">
+                                <div className="text-[#0EA5E9] relative">
+                                    <div className="flex gap-[4px] absolute -top-[12px] left-[10px]">
+                                        <div className="w-[4px] h-[8px] bg-[#FACC15] rotate-[-20deg] rounded-full"></div>
+                                        <div className="w-[4px] h-[10px] bg-[#FACC15] -translate-y-[4px] rounded-full"></div>
+                                        <div className="w-[4px] h-[8px] bg-[#FACC15] rotate-[20deg] rounded-full"></div>
+                                    </div>
+                                    <svg width="40" height="46" viewBox="0 0 40 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18.5 44C18.5 44 8 36.5 8 22C8 7.5 18 2 28 2C35 2 38 6 38 12C38 18 34 22 28 22H24C20 22 17 25 17 29C17 33 20 36 24 36H38V42C38 42 28 44 24 44H18.5Z" fill="#0EA5E9" />
+                                        <path d="M18.5 44L12 45L14 38" fill="#0EA5E9" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h1 className="font-bold text-[20px] text-[#0EA5E9] leading-tight tracking-wide">EDU<span className="text-[#2563EB]">GLOBE</span></h1>
+                                    <p className="text-[10px] font-bold text-[#FACC15] tracking-[0.1em] uppercase">Language Center</p>
+                                </div>
+                            </div>
+
+                            {/* Address (aligned right) */}
+                            <div className="text-right text-[9px] text-[#4B5563] leading-[1.6]">
+                                <p className="font-bold text-[#111827]">EduGlobe Language Center</p>
+                                <p>1C, 3rd Floor, Wisma Ampang Triangle, 1</p>
+                                <p>68000 Ampang, Selangor, Malaysia</p>
+                                <p>+6 (03) 4820 7995</p>
+                                <p>info@eduglobe.com</p>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="border-t-2 border-[#155DFC] mb-[28px]" />
-
-                    {/* Title */}
-                    <div className="text-center mb-[28px]">
-                        <h2 className="font-['Inter',sans-serif] font-black text-[18px] text-[#111827] uppercase tracking-widest">Offer Letter</h2>
-                        <p className="font-['Inter',sans-serif] text-[12px] text-[#6B7280] mt-[4px]">Surat Tawaran Kemasukan / Offer of Admission</p>
-                    </div>
-
-                    {/* Salutation */}
-                    <p className="text-[14px] text-[#111827] mb-[16px]">
-                        To Whom It May Concern,
-                    </p>
-                    <p className="text-[14px] text-[#374151] leading-[1.8] mb-[24px]">
-                        We are pleased to inform that the following student has been <strong>officially accepted</strong> for enrollment
-                        at <strong>EduGlobe Language Centre</strong>. Please find below the details of the offer of admission:
-                    </p>
-
-                    {/* Student details box */}
-                    <div className="border border-[#E5E7EB] rounded-[8px] mb-[24px] overflow-hidden">
-                        <div className="bg-[#155DFC] px-[16px] py-[10px]">
-                            <p className="font-['Inter',sans-serif] font-bold text-[13px] text-white uppercase tracking-wide">Student Information</p>
+                        {/* Date and Ref */}
+                        <div className="mb-[30px] text-[12px] text-[#6B7280]">
+                            <p>{letter.issuedDate}</p>
+                            <p className="italic mt-[2px]">Our Ref: {letter.refNo}</p>
                         </div>
-                        <div className="grid grid-cols-2 gap-0 divide-y divide-[#F3F4F6]">
-                            {[
-                                { label: "Full Name", value: letter.studentName },
-                                { label: "Student ID", value: letter.studentId },
-                                { label: "Nationality", value: letter.nationality },
-                                { label: "Passport Number", value: letter.passportNo },
-                            ].map((row) => (
-                                <div key={row.label} className="flex items-center px-[16px] py-[10px] border-b border-[#F3F4F6] gap-[16px]">
-                                    <span className="font-['Inter',sans-serif] text-[12px] text-[#6B7280] w-[140px] shrink-0">{row.label}</span>
-                                    <span className="font-['Inter',sans-serif] font-semibold text-[13px] text-[#111827]">{row.value}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
 
-                    {/* Course details box */}
-                    <div className="border border-[#E5E7EB] rounded-[8px] mb-[24px] overflow-hidden">
-                        <div className="bg-[#F97316] px-[16px] py-[10px]">
-                            <p className="font-['Inter',sans-serif] font-bold text-[13px] text-white uppercase tracking-wide">Programme Details</p>
-                        </div>
-                        <div className="divide-y divide-[#F3F4F6]">
-                            {[
-                                { label: "Programme", value: letter.program },
-                                { label: "CEFR Level", value: letter.level },
-                                { label: "Commencement Date", value: letter.startDate },
-                                { label: "Completion Date", value: letter.endDate },
-                                { label: "Total Hours", value: `${letter.sessionHours} hours` },
-                                { label: "Tuition Fee", value: `MYR ${letter.tuitionFee.toLocaleString()}` },
-                            ].map((row) => (
-                                <div key={row.label} className="flex items-center px-[16px] py-[10px] gap-[16px]">
-                                    <span className="font-['Inter',sans-serif] text-[12px] text-[#6B7280] w-[160px] shrink-0">{row.label}</span>
-                                    <span className="font-['Inter',sans-serif] font-semibold text-[13px] text-[#111827]">{row.value}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                        {/* Title */}
+                        <h2 className="text-[18px] font-bold text-[#111827] mb-[24px]">
+                            Letter of Offer
+                            <div className="w-[40px] h-[2px] bg-[#2563EB] mt-[8px]"></div>
+                        </h2>
 
-                    {/* Conditions */}
-                    <p className="text-[13px] text-[#374151] leading-[1.9] mb-[24px]">
-                        This offer is subject to the following conditions:
-                    </p>
-                    <ol className="list-decimal pl-[20px] space-y-[8px] mb-[28px]">
-                        {[
-                            "The student must present valid identification documents upon registration.",
-                            "Full tuition payment must be completed within 7 working days of acceptance.",
-                            "The student is required to maintain a minimum 80% attendance throughout the programme.",
-                            "This offer letter is valid for 30 days from the date of issue.",
-                        ].map((item, i) => (
-                            <li key={i} className="text-[13px] text-[#374151] leading-[1.8]">{item}</li>
-                        ))}
-                    </ol>
+                        {/* Student Details Grid */}
+                        <div className="grid grid-cols-[140px_1fr] gap-y-[12px] text-[12px] mb-[30px]">
+                            <div className="text-[#4B5563]">Name</div>
+                            <div className="font-semibold text-[#111827] uppercase">: {letter.studentName}</div>
 
-                    <p className="text-[13px] text-[#374151] leading-[1.9] mb-[32px]">
-                        We look forward to welcoming <strong>{letter.studentName}</strong> to EduGlobe Language Centre.
-                        Should you require any further information, please do not hesitate to contact us.
-                    </p>
+                            <div className="text-[#4B5563]">Passport Number</div>
+                            <div className="font-semibold text-[#111827] uppercase">: {letter.passportNo}</div>
 
-                    {/* Signature */}
-                    <div className="flex items-end justify-between">
-                        <div>
-                            <div className="w-[160px] border-b border-[#111827] mb-[6px] mt-[40px]" />
-                            <p className="font-['Inter',sans-serif] font-bold text-[13px] text-[#111827]">Centre Director</p>
-                            <p className="font-['Inter',sans-serif] text-[12px] text-[#6B7280]">EduGlobe Language Centre</p>
-                            <p className="font-['Inter',sans-serif] text-[12px] text-[#6B7280]">Date: {letter.issuedDate}</p>
+                            <div className="text-[#4B5563]">Nationality</div>
+                            <div className="font-semibold text-[#111827] uppercase">: {letter.nationality}</div>
                         </div>
-                        <div className="text-right">
-                            <div className="inline-block bg-[#EFF6FF] border border-[#155DFC]/20 rounded-[8px] px-[16px] py-[10px]">
-                                <p className="font-['Inter',sans-serif] font-bold text-[11px] text-[#155DFC] uppercase tracking-widest">OFFICIAL DOCUMENT</p>
-                                <p className="font-['Inter',sans-serif] text-[10px] text-[#9CA3AF] mt-[2px]">{letter.refNo}</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div className="border-t border-[#E5E7EB] mt-[32px] pt-[14px] text-center">
-                        <p className="font-['Inter',sans-serif] text-[10px] text-[#9CA3AF]">
-                            EduGlobe Language Centre · Kuala Lumpur, Malaysia · info@eduglobe.com.my · eduglobe.com.my
+                        {/* Intro Text */}
+                        <p className="text-[12px] text-[#374151] leading-[1.8] mb-[24px]">
+                            <strong>EduGlobe Malaysia</strong> is pleased to offer you a place to study full-time at <strong>EduGlobe Language Centers, Kuala Lumpur</strong> for the programme below:
                         </p>
+
+                        {/* Course Details Grid */}
+                        <div className="grid grid-cols-[140px_1fr] gap-y-[16px] text-[12px] mb-[32px]">
+                            <div className="text-[#4B5563] pt-[2px]">Programme</div>
+                            <div className="font-semibold text-[#111827] leading-[1.6] uppercase">
+                                : {letter.program} <br />
+                                <span className="pl-[10px] font-normal text-[#374151] block mt-[4px]">LEVEL: {letter.level}</span>
+                            </div>
+
+                            <div className="text-[#4B5563]">Duration</div>
+                            <div className="text-[#111827]">
+                                : {Math.max(1, Math.round(letter.sessionHours / 16))} Months
+                            </div>
+
+                            <div className="text-[#4B5563] pt-[2px]">Class Schedule</div>
+                            <div className="text-[#111827] leading-[1.6]">
+                                <div className="flex">
+                                    <span className="mr-[4px]">:</span>
+                                    <div>
+                                        8.30 am - 3.20 pm (Mondays to Thursday)<br />
+                                        8.30 am - 3.20 pm (Friday)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="text-[#4B5563]">Commencement Date</div>
+                            <div className="text-[#111827]">
+                                : {letter.startDate}
+                            </div>
+                        </div>
+
+                        {/* Body Text */}
+                        <p className="text-[12px] text-[#374151] leading-[1.8] mb-[24px]">
+                            Thank you for your initial payment of MYR {letter.tuitionFee.toLocaleString()}. We are in the midst of processing
+                            your documents for visa application for submission to Education Malaysia Global Service, Malaysia.
+                        </p>
+
+                        {/* Sections */}
+                        <div className="space-y-[20px] mb-[40px]">
+                            <div>
+                                <h3 className="text-[12px] font-bold text-[#111827] underline mb-[8px]">Student Visa Application</h3>
+                                <p className="text-[11px] text-[#374151] leading-[1.8]">
+                                    The offer is subject will be the approval of your student visa from the <strong>Malaysian Immigration Department</strong>. All application will be assessed in accordance with Malaysia Immigration rules and guidelines on visa applications.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 className="text-[12px] font-bold text-[#111827] underline mb-[8px]">Student Visa Approval Letter</h3>
+                                <p className="text-[11px] text-[#374151] leading-[1.8]">
+                                    All international students are advised to make arrangements to come to Malaysia only upon obtaining the visa Approval Letter from the Malaysian Immigration Department. EduGlobe will contact you once your student visa application has been approved.
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 className="text-[12px] font-bold text-[#111827] underline mb-[8px]">Paying the Remainder of the Fees</h3>
+                                <p className="text-[11px] text-[#374151] leading-[1.8]">
+                                    After receiving the Visa Approval Letter, you will be advised to pay the full tuition fee, inclusive of all miscellaneous fees via bank transfer to EduGlobe before your arrival to Malaysia. Please see fee details on the next page.
+                                </p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     );
 }
+
 
 // ── Create Offer Letter Form ─────────────────────────────────────────────────
 function CreateOfferLetterForm({ onClose }: { onClose: () => void }) {
