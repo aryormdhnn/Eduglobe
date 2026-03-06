@@ -23,8 +23,11 @@ import { AdminCertificateContent } from "./components/admin/AdminCertificateCont
 import { AdminCreateCertificateContent } from "./components/admin/AdminCreateCertificateContent";
 import { AdminProgressReportContent } from "./components/admin/AdminProgressReportContent";
 import { AdminEvaluationTestContent } from "./components/admin/AdminEvaluationTestContent";
+import { AdminGenerateEvaluationContent } from "./components/admin/AdminGenerateEvaluationContent";
+import { AdminOfferLetterContent } from "./components/admin/AdminOfferLetterContent";
 import { AdminReportsContent } from "./components/admin/AdminReportsContent";
 import { AdminStudentPlantContent } from "./components/admin/AdminStudentPlantContent";
+
 
 const adminPageTitles: Record<string, string> = {
   dashboard: "Dashboard",
@@ -44,7 +47,10 @@ const adminPageTitles: Record<string, string> = {
   "create-certificate": "Issue New Certificate",
   "progress-report": "Progress Reports",
   "evaluation-test": "Evaluation Test",
+  "generate-evaluation": "Generate Evaluation",
+  "offer-letter": "Generate Offer Letter",
   reports: "Reports & Analytics",
+
   "student-plant": "Student Plant",
 };
 
@@ -104,7 +110,10 @@ export default function App() {
               <AdminProgressReportContent onBack={() => setAdminPage("certificate")} />
             )}
             {adminPage === "evaluation-test" && <AdminEvaluationTestContent />}
+            {adminPage === "generate-evaluation" && <AdminGenerateEvaluationContent />}
+            {adminPage === "offer-letter" && <AdminOfferLetterContent />}
             {adminPage === "reports" && <AdminReportsContent />}
+
             {adminPage === "student-plant" && <AdminStudentPlantContent />}
           </div>
         </>

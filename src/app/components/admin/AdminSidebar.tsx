@@ -20,7 +20,10 @@ import {
     Award,
     Settings,
     ChevronRight,
+    ClipboardCheck,
+    FileBadge2,
 } from "lucide-react";
+
 
 interface MenuItem {
     label: string;
@@ -46,6 +49,8 @@ const menuItems: MenuItem[] = [
     { label: "Certificate", icon: <Award size={18} />, page: "certificate" },
     { label: "Progress Report", icon: <BarChart3 size={18} />, page: "progress-report" },
     { label: "Evaluation Test", icon: <FlaskConical size={18} />, page: "evaluation-test" },
+    { label: "Generate Evaluation", icon: <ClipboardCheck size={18} />, page: "generate-evaluation" },
+    { label: "Generate Offer Letter", icon: <FileBadge2 size={18} />, page: "offer-letter" },
     { label: "Reports", icon: <BarChart2 size={18} />, page: "reports" },
     { label: "Student Plant", icon: <Leaf size={18} />, page: "student-plant" },
 ];
