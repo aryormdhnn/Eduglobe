@@ -30,24 +30,24 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-    { label: "Dashboard", icon: <LayoutDashboard size={18} /> },
-    { label: "Enquiry", icon: <HelpCircle size={18} /> },
-    { label: "Placement Test", icon: <ClipboardList size={18} /> },
-    { label: "Program", icon: <BookOpen size={18} /> },
-    { label: "Student Study Plan", icon: <CalendarDays size={18} /> },
+    { label: "Dashboard", icon: <LayoutDashboard size={18} />, page: "dashboard" },
+    { label: "Enquiry", icon: <HelpCircle size={18} />, page: "enquiry" },
+    { label: "Placement Test", icon: <ClipboardList size={18} />, page: "placement-test" },
+    { label: "Program", icon: <BookOpen size={18} />, page: "program" },
+    { label: "Student Study Plan", icon: <CalendarDays size={18} />, page: "study-plan" },
     { label: "Students", icon: <Users size={18} />, page: "students" },
-    { label: "Teachers", icon: <GraduationCap size={18} />, hasChildren: true },
-    { label: "Agent", icon: <UserCog size={18} /> },
-    { label: "Classes", icon: <School size={18} />, hasChildren: true },
-    { label: "Application", icon: <FileText size={18} /> },
-    { label: "Visa Management", icon: <Globe size={18} />, hasChildren: true },
-    { label: "Payment", icon: <CreditCard size={18} /> },
-    { label: "Anouncement", icon: <Megaphone size={18} /> },
+    { label: "Teachers", icon: <GraduationCap size={18} />, page: "teachers", hasChildren: true },
+    { label: "Agent", icon: <UserCog size={18} />, page: "agent" },
+    { label: "Classes", icon: <School size={18} />, page: "classes", hasChildren: true },
+    { label: "Application", icon: <FileText size={18} />, page: "application" },
+    { label: "Visa Management", icon: <Globe size={18} />, page: "visa", hasChildren: true },
+    { label: "Payment", icon: <CreditCard size={18} />, page: "payment" },
+    { label: "Anouncement", icon: <Megaphone size={18} />, page: "announcement" },
     { label: "Certificate", icon: <Award size={18} />, page: "certificate" },
     { label: "Progress Report", icon: <BarChart3 size={18} />, page: "progress-report" },
-    { label: "Evaluation Test", icon: <FlaskConical size={18} /> },
-    { label: "Reports", icon: <BarChart2 size={18} /> },
-    { label: "Student Plant", icon: <Leaf size={18} /> },
+    { label: "Evaluation Test", icon: <FlaskConical size={18} />, page: "evaluation-test" },
+    { label: "Reports", icon: <BarChart2 size={18} />, page: "reports" },
+    { label: "Student Plant", icon: <Leaf size={18} />, page: "student-plant" },
 ];
 
 interface AdminSidebarProps {
@@ -58,8 +58,7 @@ interface AdminSidebarProps {
 export function AdminSidebar({ activePage, onNavigate }: AdminSidebarProps) {
     // Map page key → menu label for highlight
     const activeLabel =
-        activePage === "students" ? "Students" :
-            activePage === "certificate" ? "Certificate" : activePage;
+        menuItems.find((m) => m.page === activePage)?.label ?? activePage;
 
     return (
         <div className="fixed left-0 top-0 flex flex-col justify-between bg-white w-[200px] h-screen border-r border-[#f0f0f0] z-20">
