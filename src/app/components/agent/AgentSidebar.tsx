@@ -1,30 +1,15 @@
 import imgLogos4 from "../../../assets/logo.png";
 import {
     LayoutDashboard,
-    HelpCircle,
-    ClipboardList,
-    BookOpen,
-    CalendarDays,
+    MessageSquare,
     Users,
-    GraduationCap,
-    UserCog,
-    School,
-    FileText,
-    Globe,
-    CreditCard,
-    Megaphone,
-    FlaskConical,
+    Plane,
     BarChart2,
-    BarChart3,
-    Leaf,
-    Award,
+    Banknote,
+    MessageCircle,
     Settings,
     ChevronRight,
-    ClipboardCheck,
-    FileBadge2,
-    CalendarOff,
 } from "lucide-react";
-
 
 interface MenuItem {
     label: string;
@@ -35,35 +20,20 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
     { label: "Dashboard", icon: <LayoutDashboard size={18} />, page: "dashboard" },
-    { label: "Enquiry", icon: <HelpCircle size={18} />, page: "enquiry" },
-    { label: "Placement Test", icon: <ClipboardList size={18} />, page: "placement-test" },
-    { label: "Program", icon: <BookOpen size={18} />, page: "program" },
-    { label: "Student Study Plan", icon: <CalendarDays size={18} />, page: "study-plan" },
-    { label: "Students", icon: <Users size={18} />, page: "students" },
-    { label: "Teachers", icon: <GraduationCap size={18} />, page: "teachers", hasChildren: true },
-    { label: "Agent", icon: <UserCog size={18} />, page: "agent" },
-    { label: "Classes", icon: <School size={18} />, page: "classes", hasChildren: true },
-    { label: "Application", icon: <FileText size={18} />, page: "application" },
-    { label: "Visa Management", icon: <Globe size={18} />, page: "visa", hasChildren: true },
-    { label: "Payment", icon: <CreditCard size={18} />, page: "payment" },
-    { label: "Anouncement", icon: <Megaphone size={18} />, page: "announcement" },
-    { label: "Certificate", icon: <Award size={18} />, page: "certificate" },
-    { label: "Progress Report", icon: <BarChart3 size={18} />, page: "progress-report" },
-    { label: "Evaluation Test", icon: <FlaskConical size={18} />, page: "evaluation-test" },
-    { label: "Generate Evaluation", icon: <ClipboardCheck size={18} />, page: "generate-evaluation" },
-    { label: "Generate Offer Letter", icon: <FileBadge2 size={18} />, page: "offer-letter" },
-    { label: "Reports", icon: <BarChart2 size={18} />, page: "reports" },
-    { label: "Student Plant", icon: <Leaf size={18} />, page: "student-plant" },
-    { label: "Leave History", icon: <CalendarOff size={18} />, page: "leave-history" },
+    { label: "Enquiry", icon: <MessageSquare size={18} />, page: "enquiry" },
+    { label: "My Students", icon: <Users size={18} />, page: "students" },
+    { label: "Visa Application", icon: <Plane size={18} />, page: "visa", hasChildren: true },
+    { label: "Reports & Analytics", icon: <BarChart2 size={18} />, page: "reports" },
+    { label: "Commission & Payments", icon: <Banknote size={18} />, page: "commission" },
+    { label: "Chat", icon: <MessageCircle size={18} />, page: "chat" },
 ];
 
-interface AdminSidebarProps {
+interface AgentSidebarProps {
     activePage: string;
     onNavigate: (page: string) => void;
 }
 
-export function AdminSidebar({ activePage, onNavigate }: AdminSidebarProps) {
-    // Map page key → menu label for highlight
+export function AgentSidebar({ activePage, onNavigate }: AgentSidebarProps) {
     const activeLabel =
         menuItems.find((m) => m.page === activePage)?.label ?? activePage;
 
@@ -82,8 +52,8 @@ export function AdminSidebar({ activePage, onNavigate }: AdminSidebarProps) {
                     </button>
                 </div>
 
-                {/* Nav Items */}
-                <nav className="flex flex-col py-[8px] overflow-y-auto flex-1">
+                {/* Nav Items (No Role Badge specifically in the design) */}
+                <nav className="flex flex-col py-[16px] overflow-y-auto flex-1 gap-[4px]">
                     {menuItems.map((item) => {
                         const isActive = item.label === activeLabel;
                         return (
@@ -91,7 +61,7 @@ export function AdminSidebar({ activePage, onNavigate }: AdminSidebarProps) {
                                 key={item.label}
                                 onClick={() => item.page && onNavigate(item.page)}
                                 className={`flex items-center justify-between px-[16px] py-[10px] text-left transition-colors ${isActive
-                                    ? "bg-[#EFF6FF] text-[#155DFC] font-semibold"
+                                    ? "bg-[#EFF6FF] text-[#155DFC] font-semibold border-r-2 border-[#155DFC]"
                                     : "text-[#6B7280] hover:bg-[#f9fafb] hover:text-[#374151]"
                                     }`}
                             >
@@ -99,7 +69,7 @@ export function AdminSidebar({ activePage, onNavigate }: AdminSidebarProps) {
                                     <span className={isActive ? "text-[#155DFC]" : "text-[#9CA3AF]"}>
                                         {item.icon}
                                     </span>
-                                    <span className="font-['Inter',sans-serif] text-[13px] leading-[1.5]">
+                                    <span className={`font-['Inter',sans-serif] text-[13px] leading-[1.5] ${isActive ? "text-[#155DFC]" : "text-[#6B7280]"}`}>
                                         {item.label}
                                     </span>
                                 </div>

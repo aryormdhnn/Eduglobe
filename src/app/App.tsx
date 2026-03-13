@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Sidebar } from "./components/student/Sidebar";
 import { Navbar } from "./components/student/Navbar";
 import { CertificateContent } from "./components/student/CertificateContent";
+import { StudentExaminationContent } from "./components/student/StudentExaminationContent";
 import { Toaster } from "./components/ui/sonner";
 import { AdminSidebar } from "./components/admin/AdminSidebar";
 import { AdminNavbar } from "./components/admin/AdminNavbar";
@@ -27,7 +28,27 @@ import { AdminGenerateEvaluationContent } from "./components/admin/AdminGenerate
 import { AdminOfferLetterContent } from "./components/admin/AdminOfferLetterContent";
 import { AdminReportsContent } from "./components/admin/AdminReportsContent";
 import { AdminStudentPlantContent } from "./components/admin/AdminStudentPlantContent";
+import { AdminLeaveHistoryContent } from "./components/admin/AdminLeaveHistoryContent";
+// Staff pages
+import { StaffSidebar } from "./components/staff/StaffSidebar";
+import { StaffNavbar } from "./components/staff/StaffNavbar";
+import { StaffDashboardContent } from "./components/staff/StaffDashboardContent";
+import { StaffStudentContent } from "./components/staff/StaffStudentContent";
+import { StaffInvoiceContent } from "./components/staff/StaffInvoiceContent";
+import { StaffLeaveContent } from "./components/staff/StaffLeaveContent";
+import { StaffAttendanceContent } from "./components/staff/StaffAttendanceContent";
+import { StaffClassesContent } from "./components/staff/StaffClassesContent";
+import { StaffAnnouncementContent } from "./components/staff/StaffAnnouncementContent";
+// Teacher pages
+import { TeacherSidebar } from "./components/teacher/TeacherSidebar";
+import { TeacherNavbar } from "./components/teacher/TeacherNavbar";
+import { TeacherExaminationContent } from "./components/teacher/TeacherExaminationContent";
 
+// Agent pages
+import { AgentSidebar } from "./components/agent/AgentSidebar";
+import { AgentNavbar } from "./components/agent/AgentNavbar";
+import { AgentCommissionContent } from "./components/agent/AgentCommissionContent";
+import { AgentTransactionDetailContent } from "./components/agent/AgentTransactionDetailContent";
 
 const adminPageTitles: Record<string, string> = {
   dashboard: "Dashboard",
@@ -52,12 +73,69 @@ const adminPageTitles: Record<string, string> = {
   reports: "Reports & Analytics",
 
   "student-plant": "Student Plant",
+  "leave-history": "Leave History",
+};
+
+const studentPageTitles: Record<string, string> = {
+  dashboard: "Dashboard",
+  "placement-test": "Placement Test",
+  "my-classes": "My Classes",
+  "my-study-plan": "My Study Plan",
+  "my-certificate": "My Certificate",
+  attendance: "Attendance",
+  "study-materials": "Study Materials",
+  "my-assignments": "My Assignments",
+  "my-examination": "My Examination",
+  schedule: "Schedule",
+  "academic-reports": "Academic Reports",
+  payment: "Payment",
+  "evaluation-test": "Evaluation Test",
+  chat: "Chat",
+  "visa-information": "Visa Information",
+};
+
+const staffPageTitles: Record<string, string> = {
+  dashboard: "Dashboard",
+  students: "Students",
+  attendance: "Attendance",
+  classes: "Classes",
+  invoice: "Invoice",
+  announcement: "Announcement",
+  leave: "Leave / Cuti",
+};
+
+const teacherPageTitles: Record<string, string> = {
+  dashboard: "Dashboard",
+  students: "Students",
+  "my-classes": "My Classes",
+  examination: "Examination",
+  schedule: "Schedule",
+  "academic-reports": "Academic Reports",
+};
+
+const agentPageTitles: Record<string, string> = {
+  dashboard: "Dashboard",
+  enquiry: "Enquiry",
+  students: "My Students",
+  visa: "Visa Application",
+  reports: "Reports & Analytics",
+  commission: "Commission & Payments",
+  chat: "Chat"
 };
 
 export default function App() {
-  const [role, setRole] = useState<"student" | "admin">("student");
+  const [role, setRole] = useState<"student" | "admin" | "staff" | "teacher" | "agent">("agent");
   const [adminPage, setAdminPage] = useState("dashboard");
+  const [staffPage, setStaffPage] = useState("dashboard");
+  const [studentPage, setStudentPage] = useState("my-examination");
+  const [teacherPage, setTeacherPage] = useState("examination");
+  const [agentPage, setAgentPage] = useState("commission");
+  const [agentPageParams, setAgentPageParams] = useState<any>(null);
 
+  const handleAgentNavigate = (page: string, params?: any) => {
+    setAgentPage(page);
+    setAgentPageParams(params || null);
+  };
   return (
     <div className="bg-[#f6f6f6] min-h-screen relative">
       {/* Role Toggle */}
@@ -70,17 +148,35 @@ export default function App() {
           onClick={() => setRole("admin")}
           className={`px-[16px] py-[8px] rounded-full font-['Inter',sans-serif] font-semibold text-[13px] transition-all duration-200 ${role === "admin" ? "bg-[#155DFC] text-white shadow-sm" : "text-[#6B7280] hover:text-[#374151]"}`}
         >Admin</button>
+        <button
+          onClick={() => setRole("teacher")}
+          className={`px-[16px] py-[8px] rounded-full font-['Inter',sans-serif] font-semibold text-[13px] transition-all duration-200 ${role === "teacher" ? "bg-[#155DFC] text-white shadow-sm" : "text-[#6B7280] hover:text-[#374151]"}`}
+        >Teacher</button>
+        <button
+          onClick={() => setRole("staff")}
+          className={`px-[16px] py-[8px] rounded-full font-['Inter',sans-serif] font-semibold text-[13px] transition-all duration-200 ${role === "staff" ? "bg-[#155DFC] text-white shadow-sm" : "text-[#6B7280] hover:text-[#374151]"}`}
+        >Staff</button>
+        <button
+          onClick={() => setRole("agent")}
+          className={`px-[16px] py-[8px] rounded-full font-['Inter',sans-serif] font-semibold text-[13px] transition-all duration-200 ${role === "agent" ? "bg-[#155DFC] text-white shadow-sm" : "text-[#6B7280] hover:text-[#374151]"}`}
+        >Agent</button>
       </div>
 
       {role === "student" ? (
         <>
-          <Sidebar />
-          <Navbar />
+          <Sidebar activePage={studentPage} onNavigate={setStudentPage} />
+          <Navbar title={studentPageTitles[studentPage] ?? "Dashboard"} />
           <div className="ml-[248px] pt-[80px] p-[24px]">
-            <CertificateContent />
+            {studentPage === "my-certificate" && <CertificateContent />}
+            {studentPage === "my-examination" && <StudentExaminationContent />}
+            {!(["my-certificate", "my-examination"].includes(studentPage)) && (
+              <div className="bg-white rounded-[16px] border border-[#F3F4F6] p-[32px] min-h-[400px] flex items-center justify-center">
+                <p className="font-['Inter',sans-serif] text-[16px] text-[#9CA3AF]">Coming soon — {studentPageTitles[studentPage] ?? studentPage}</p>
+              </div>
+            )}
           </div>
         </>
-      ) : (
+      ) : role === "admin" ? (
         <>
           <AdminSidebar activePage={adminPage} onNavigate={setAdminPage} />
           <AdminNavbar title={adminPageTitles[adminPage] ?? "Admin"} />
@@ -115,9 +211,51 @@ export default function App() {
             {adminPage === "reports" && <AdminReportsContent />}
 
             {adminPage === "student-plant" && <AdminStudentPlantContent />}
+            {adminPage === "leave-history" && <AdminLeaveHistoryContent />}
           </div>
         </>
-      )}
+      ) : role === "staff" ? (
+        <>
+          <StaffSidebar activePage={staffPage} onNavigate={setStaffPage} />
+          <StaffNavbar title={staffPageTitles[staffPage] ?? "Staff"} />
+          <div className="ml-[200px] pt-[64px] p-[24px] bg-[#F9FAFB] min-h-screen">
+            {staffPage === "dashboard" && <StaffDashboardContent />}
+            {staffPage === "students" && <StaffStudentContent />}
+            {staffPage === "attendance" && <StaffAttendanceContent />}
+            {staffPage === "classes" && <StaffClassesContent />}
+            {staffPage === "invoice" && <StaffInvoiceContent />}
+            {staffPage === "announcement" && <StaffAnnouncementContent />}
+            {staffPage === "leave" && <StaffLeaveContent />}
+          </div>
+        </>
+      ) : role === "teacher" ? (
+        <>
+          <TeacherSidebar activePage={teacherPage} onNavigate={setTeacherPage} />
+          <TeacherNavbar title={teacherPageTitles[teacherPage] ?? "Dashboard"} />
+          <div className="ml-[248px] pt-[80px] p-[24px]">
+            {teacherPage === "examination" && <TeacherExaminationContent />}
+            {!(["examination"].includes(teacherPage)) && (
+              <div className="bg-white rounded-[16px] border border-[#F3F4F6] p-[32px] min-h-[400px] flex items-center justify-center">
+                <p className="font-['Inter',sans-serif] text-[16px] text-[#9CA3AF]">Coming soon — {teacherPageTitles[teacherPage] ?? teacherPage}</p>
+              </div>
+            )}
+          </div>
+        </>
+      ) : role === "agent" ? (
+        <>
+          <AgentSidebar activePage={agentPage === "transaction-detail" ? "commission" : agentPage} onNavigate={setAgentPage} />
+          <AgentNavbar title="" />
+          <div className="ml-[200px] pt-[64px] p-[24px] bg-[#FAFAFA] min-h-screen">
+            {agentPage === "commission" && <AgentCommissionContent onNavigate={handleAgentNavigate} />}
+            {agentPage === "transaction-detail" && <AgentTransactionDetailContent onBack={() => handleAgentNavigate("commission")} transactionId={agentPageParams?.id} />}
+            {!(["commission", "transaction-detail"].includes(agentPage)) && (
+              <div className="bg-white rounded-[16px] border border-[#F3F4F6] p-[32px] min-h-[400px] flex items-center justify-center shadow-sm">
+                <p className="font-['Inter',sans-serif] text-[16px] text-[#9CA3AF]">Coming soon — {agentPageTitles[agentPage] ?? agentPage}</p>
+              </div>
+            )}
+          </div>
+        </>
+      ) : null}
 
       <Toaster />
     </div>

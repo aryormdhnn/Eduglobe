@@ -1,30 +1,15 @@
 import imgLogos4 from "../../../assets/logo.png";
 import {
     LayoutDashboard,
-    HelpCircle,
-    ClipboardList,
-    BookOpen,
-    CalendarDays,
     Users,
-    GraduationCap,
-    UserCog,
-    School,
     FileText,
-    Globe,
-    CreditCard,
+    CalendarOff,
+    ClipboardCheck,
+    School,
     Megaphone,
-    FlaskConical,
-    BarChart2,
-    BarChart3,
-    Leaf,
-    Award,
     Settings,
     ChevronRight,
-    ClipboardCheck,
-    FileBadge2,
-    CalendarOff,
 } from "lucide-react";
-
 
 interface MenuItem {
     label: string;
@@ -35,35 +20,20 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
     { label: "Dashboard", icon: <LayoutDashboard size={18} />, page: "dashboard" },
-    { label: "Enquiry", icon: <HelpCircle size={18} />, page: "enquiry" },
-    { label: "Placement Test", icon: <ClipboardList size={18} />, page: "placement-test" },
-    { label: "Program", icon: <BookOpen size={18} />, page: "program" },
-    { label: "Student Study Plan", icon: <CalendarDays size={18} />, page: "study-plan" },
     { label: "Students", icon: <Users size={18} />, page: "students" },
-    { label: "Teachers", icon: <GraduationCap size={18} />, page: "teachers", hasChildren: true },
-    { label: "Agent", icon: <UserCog size={18} />, page: "agent" },
-    { label: "Classes", icon: <School size={18} />, page: "classes", hasChildren: true },
-    { label: "Application", icon: <FileText size={18} />, page: "application" },
-    { label: "Visa Management", icon: <Globe size={18} />, page: "visa", hasChildren: true },
-    { label: "Payment", icon: <CreditCard size={18} />, page: "payment" },
-    { label: "Anouncement", icon: <Megaphone size={18} />, page: "announcement" },
-    { label: "Certificate", icon: <Award size={18} />, page: "certificate" },
-    { label: "Progress Report", icon: <BarChart3 size={18} />, page: "progress-report" },
-    { label: "Evaluation Test", icon: <FlaskConical size={18} />, page: "evaluation-test" },
-    { label: "Generate Evaluation", icon: <ClipboardCheck size={18} />, page: "generate-evaluation" },
-    { label: "Generate Offer Letter", icon: <FileBadge2 size={18} />, page: "offer-letter" },
-    { label: "Reports", icon: <BarChart2 size={18} />, page: "reports" },
-    { label: "Student Plant", icon: <Leaf size={18} />, page: "student-plant" },
-    { label: "Leave History", icon: <CalendarOff size={18} />, page: "leave-history" },
+    { label: "Attendance", icon: <ClipboardCheck size={18} />, page: "attendance" },
+    { label: "Classes", icon: <School size={18} />, page: "classes" },
+    { label: "Invoice", icon: <FileText size={18} />, page: "invoice" },
+    { label: "Announcement", icon: <Megaphone size={18} />, page: "announcement" },
+    { label: "Leave / Cuti", icon: <CalendarOff size={18} />, page: "leave" },
 ];
 
-interface AdminSidebarProps {
+interface StaffSidebarProps {
     activePage: string;
     onNavigate: (page: string) => void;
 }
 
-export function AdminSidebar({ activePage, onNavigate }: AdminSidebarProps) {
-    // Map page key → menu label for highlight
+export function StaffSidebar({ activePage, onNavigate }: StaffSidebarProps) {
     const activeLabel =
         menuItems.find((m) => m.page === activePage)?.label ?? activePage;
 
@@ -80,6 +50,15 @@ export function AdminSidebar({ activePage, onNavigate }: AdminSidebarProps) {
                             <rect x="14" y="15" width="7" height="5" rx="1" stroke="currentColor" strokeWidth="1.5" />
                         </svg>
                     </button>
+                </div>
+
+                {/* Role Badge */}
+                <div className="px-[16px] py-[12px] border-b border-[#f0f0f0]">
+                    <div className="flex items-center gap-[8px]">
+                        <div className="bg-[#DBEAFE] text-[#1E40AF] px-[10px] py-[3px] rounded-full">
+                            <span className="font-['Inter',sans-serif] text-[11px] font-semibold">STAFF</span>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Nav Items */}

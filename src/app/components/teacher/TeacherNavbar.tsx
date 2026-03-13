@@ -1,9 +1,9 @@
 import svgPaths from "../../../imports/svg-mpum6s8vmz";
 import imgProfilePicture from "../../../assets/profile_picture.png";
 
-export function Navbar({ title = "Dashboard" }: { title?: string }) {
+export function TeacherNavbar({ title = "Dashboard" }: { title?: string }) {
   return (
-    <div className="fixed top-0 left-[248px] right-0 bg-white flex items-center justify-between px-[24px] py-[16px] z-10">
+    <div className="fixed top-0 left-[248px] right-0 bg-white flex items-center justify-between px-[24px] py-[16px] z-10 border-b border-[#F3F4F6]">
       {/* Title */}
       <p className="font-['Inter',sans-serif] font-semibold text-[20px] leading-[1.3] text-black">
         {title}
@@ -46,7 +46,7 @@ export function Navbar({ title = "Dashboard" }: { title?: string }) {
         </div>
 
         {/* Notification */}
-        <div className="bg-[#f6f6f6] flex items-center justify-center rounded-full size-[47px] relative">
+        <div className="bg-[#f6f6f6] flex items-center justify-center rounded-full size-[47px] relative cursor-pointer hover:bg-[#E5E7EB] transition-colors">
           <svg className="size-[24px]" fill="none" viewBox="0 0 24 24">
             <path d={svgPaths.p2e4da280} stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" transform="translate(5.25, 18.75)" />
             <path d={svgPaths.p259f2900} stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" transform="translate(3, 3)" />
@@ -55,7 +55,7 @@ export function Navbar({ title = "Dashboard" }: { title?: string }) {
         </div>
 
         {/* Profile */}
-        <div className="bg-[#f6f6f6] flex gap-[8px] items-center pl-[4px] pr-[16px] rounded-full h-[47px]">
+        <div className="bg-[#f6f6f6] flex gap-[8px] items-center pl-[4px] pr-[16px] rounded-full h-[47px] cursor-pointer hover:bg-[#E5E7EB] transition-colors">
           <div className="flex gap-[8px] items-center">
             <img
               alt="Profile"
@@ -63,7 +63,7 @@ export function Navbar({ title = "Dashboard" }: { title?: string }) {
               src={imgProfilePicture}
             />
             <span className="font-['Inter',sans-serif] font-normal text-[16px] leading-[1.5] text-black">
-              Jhon
+              Mr. David
             </span>
           </div>
           <svg className="size-[20px]" fill="none" viewBox="0 0 20 20">
