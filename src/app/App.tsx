@@ -52,6 +52,7 @@ import { AgentNavbar } from "./components/agent/AgentNavbar";
 import { AgentCommissionContent } from "./components/agent/AgentCommissionContent";
 import { AgentTransactionDetailContent } from "./components/agent/AgentTransactionDetailContent";
 import { AgentContractContent } from "./components/agent/AgentContractContent";
+import { AgentAppointedCertificateContent } from "./components/agent/AgentAppointedCertificateContent";
 
 // Conselor pages
 import { ConselorSidebar } from "./components/conselor/ConselorSidebar";
@@ -132,6 +133,7 @@ const agentPageTitles: Record<string, string> = {
   reports: "Reports & Analytics",
   commission: "Commission & Payments",
   contract: "Contracts",
+  appointed: "Appointed Representative",
   chat: "Chat"
 };
 
@@ -277,7 +279,8 @@ export default function App() {
             {agentPage === "commission" && <AgentCommissionContent onNavigate={handleAgentNavigate} />}
             {agentPage === "transaction-detail" && <AgentTransactionDetailContent onBack={() => handleAgentNavigate("commission")} transactionId={agentPageParams?.id} />}
             {agentPage === "contract" && <AgentContractContent />}
-            {!(["commission", "transaction-detail", "contract"].includes(agentPage)) && (
+            {agentPage === "appointed" && <AgentAppointedCertificateContent />}
+            {!(["commission", "transaction-detail", "contract", "appointed"].includes(agentPage)) && (
               <div className="bg-white rounded-[16px] border border-[#F3F4F6] p-[32px] min-h-[400px] flex items-center justify-center shadow-sm">
                 <p className="font-['Inter',sans-serif] text-[16px] text-[#9CA3AF]">Coming soon — {agentPageTitles[agentPage] ?? agentPage}</p>
               </div>

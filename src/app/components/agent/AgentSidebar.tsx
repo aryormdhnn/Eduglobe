@@ -10,6 +10,7 @@ import {
     Settings,
     ChevronRight,
     FileText,
+    Award,
 } from "lucide-react";
 
 interface MenuItem {
@@ -27,6 +28,7 @@ const menuItems: MenuItem[] = [
     { label: "Reports & Analytics", icon: <BarChart2 size={18} />, page: "reports" },
     { label: "Commission & Payments", icon: <Banknote size={18} />, page: "commission" },
     { label: "Contracts", icon: <FileText size={18} />, page: "contract" },
+    { label: "Appointed Representative", icon: <Award size={18} />, page: "appointed" },
     { label: "Chat", icon: <MessageCircle size={18} />, page: "chat" },
 ];
 
