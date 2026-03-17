@@ -26,6 +26,8 @@ import { AdminProgressReportContent } from "./components/admin/AdminProgressRepo
 import { AdminEvaluationTestContent } from "./components/admin/AdminEvaluationTestContent";
 import { AdminGenerateEvaluationContent } from "./components/admin/AdminGenerateEvaluationContent";
 import { AdminOfferLetterContent } from "./components/admin/AdminOfferLetterContent";
+import { AdminGenerateContractContent } from "./components/admin/AdminGenerateContractContent";
+import { AdminGenerateAppointedCertificateContent } from "./components/admin/AdminGenerateAppointedCertificateContent";
 import { AdminReportsContent } from "./components/admin/AdminReportsContent";
 import { AdminStudentPlantContent } from "./components/admin/AdminStudentPlantContent";
 import { AdminLeaveHistoryContent } from "./components/admin/AdminLeaveHistoryContent";
@@ -49,6 +51,13 @@ import { AgentSidebar } from "./components/agent/AgentSidebar";
 import { AgentNavbar } from "./components/agent/AgentNavbar";
 import { AgentCommissionContent } from "./components/agent/AgentCommissionContent";
 import { AgentTransactionDetailContent } from "./components/agent/AgentTransactionDetailContent";
+import { AgentContractContent } from "./components/agent/AgentContractContent";
+
+// Conselor pages
+import { ConselorSidebar } from "./components/conselor/ConselorSidebar";
+import { ConselorNavbar } from "./components/conselor/ConselorNavbar";
+import { ConselorDashboardContent } from "./components/conselor/ConselorDashboardContent";
+import { ConselorFeeContent } from "./components/conselor/ConselorFeeContent";
 
 const adminPageTitles: Record<string, string> = {
   dashboard: "Dashboard",
@@ -70,6 +79,8 @@ const adminPageTitles: Record<string, string> = {
   "evaluation-test": "Evaluation Test",
   "generate-evaluation": "Generate Evaluation",
   "offer-letter": "Generate Offer Letter",
+  "generate-contract": "Generate Contract",
+  "appointed-certificate": "Appointed Representative",
   reports: "Reports & Analytics",
 
   "student-plant": "Student Plant",
@@ -120,16 +131,27 @@ const agentPageTitles: Record<string, string> = {
   visa: "Visa Application",
   reports: "Reports & Analytics",
   commission: "Commission & Payments",
+  contract: "Contracts",
   chat: "Chat"
 };
 
+const conselorPageTitles: Record<string, string> = {
+  dashboard: "Dashboard",
+  students: "Students",
+  applications: "Applications",
+  fee: "Marketing Fees",
+  appointments: "Appointments",
+  chat: "Chat",
+};
+
 export default function App() {
-  const [role, setRole] = useState<"student" | "admin" | "staff" | "teacher" | "agent">("agent");
+  const [role, setRole] = useState<"student" | "admin" | "staff" | "teacher" | "agent" | "conselor">("agent");
   const [adminPage, setAdminPage] = useState("dashboard");
   const [staffPage, setStaffPage] = useState("dashboard");
   const [studentPage, setStudentPage] = useState("my-examination");
   const [teacherPage, setTeacherPage] = useState("examination");
   const [agentPage, setAgentPage] = useState("commission");
+  const [conselorPage, setConselorPage] = useState("dashboard");
   const [agentPageParams, setAgentPageParams] = useState<any>(null);
 
   const handleAgentNavigate = (page: string, params?: any) => {
@@ -160,6 +182,10 @@ export default function App() {
           onClick={() => setRole("agent")}
           className={`px-[16px] py-[8px] rounded-full font-['Inter',sans-serif] font-semibold text-[13px] transition-all duration-200 ${role === "agent" ? "bg-[#155DFC] text-white shadow-sm" : "text-[#6B7280] hover:text-[#374151]"}`}
         >Agent</button>
+        <button
+          onClick={() => setRole("conselor")}
+          className={`px-[16px] py-[8px] rounded-full font-['Inter',sans-serif] font-semibold text-[13px] transition-all duration-200 ${role === "conselor" ? "bg-[#155DFC] text-white shadow-sm" : "text-[#6B7280] hover:text-[#374151]"}`}
+        >Conselor</button>
       </div>
 
       {role === "student" ? (
@@ -208,6 +234,8 @@ export default function App() {
             {adminPage === "evaluation-test" && <AdminEvaluationTestContent />}
             {adminPage === "generate-evaluation" && <AdminGenerateEvaluationContent />}
             {adminPage === "offer-letter" && <AdminOfferLetterContent />}
+            {adminPage === "generate-contract" && <AdminGenerateContractContent />}
+            {adminPage === "appointed-certificate" && <AdminGenerateAppointedCertificateContent />}
             {adminPage === "reports" && <AdminReportsContent />}
 
             {adminPage === "student-plant" && <AdminStudentPlantContent />}
@@ -248,9 +276,24 @@ export default function App() {
           <div className="ml-[200px] pt-[64px] p-[24px] bg-[#FAFAFA] min-h-screen">
             {agentPage === "commission" && <AgentCommissionContent onNavigate={handleAgentNavigate} />}
             {agentPage === "transaction-detail" && <AgentTransactionDetailContent onBack={() => handleAgentNavigate("commission")} transactionId={agentPageParams?.id} />}
-            {!(["commission", "transaction-detail"].includes(agentPage)) && (
+            {agentPage === "contract" && <AgentContractContent />}
+            {!(["commission", "transaction-detail", "contract"].includes(agentPage)) && (
               <div className="bg-white rounded-[16px] border border-[#F3F4F6] p-[32px] min-h-[400px] flex items-center justify-center shadow-sm">
                 <p className="font-['Inter',sans-serif] text-[16px] text-[#9CA3AF]">Coming soon — {agentPageTitles[agentPage] ?? agentPage}</p>
+              </div>
+            )}
+          </div>
+        </>
+      ) : role === "conselor" ? (
+        <>
+          <ConselorSidebar activePage={conselorPage} onNavigate={setConselorPage} />
+          <ConselorNavbar title={conselorPageTitles[conselorPage] ?? "Dashboard"} />
+          <div className="ml-[200px] pt-[64px] p-[24px] bg-[#FAFAFA] min-h-screen">
+            {conselorPage === "dashboard" && <ConselorDashboardContent />}
+            {conselorPage === "fee" && <ConselorFeeContent />}
+            {!(["dashboard", "fee"].includes(conselorPage)) && (
+              <div className="bg-white rounded-[16px] border border-[#F3F4F6] p-[32px] min-h-[400px] flex items-center justify-center shadow-sm">
+                <p className="font-['Inter',sans-serif] text-[16px] text-[#9CA3AF]">Coming soon — {conselorPageTitles[conselorPage] ?? conselorPage}</p>
               </div>
             )}
           </div>

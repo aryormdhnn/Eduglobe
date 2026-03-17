@@ -1,15 +1,13 @@
 import imgLogos4 from "../../../assets/logo.png";
 import {
     LayoutDashboard,
-    MessageSquare,
     Users,
-    Plane,
-    BarChart2,
-    Banknote,
-    MessageCircle,
+    FileText,
+    Calendar,
+    MessageSquare,
+    DollarSign,
     Settings,
     ChevronRight,
-    FileText,
 } from "lucide-react";
 
 interface MenuItem {
@@ -21,21 +19,19 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
     { label: "Dashboard", icon: <LayoutDashboard size={18} />, page: "dashboard" },
-    { label: "Enquiry", icon: <MessageSquare size={18} />, page: "enquiry" },
-    { label: "My Students", icon: <Users size={18} />, page: "students" },
-    { label: "Visa Application", icon: <Plane size={18} />, page: "visa", hasChildren: true },
-    { label: "Reports & Analytics", icon: <BarChart2 size={18} />, page: "reports" },
-    { label: "Commission & Payments", icon: <Banknote size={18} />, page: "commission" },
-    { label: "Contracts", icon: <FileText size={18} />, page: "contract" },
-    { label: "Chat", icon: <MessageCircle size={18} />, page: "chat" },
+    { label: "Students", icon: <Users size={18} />, page: "students" },
+    { label: "Applications", icon: <FileText size={18} />, page: "applications" },
+    { label: "Fee", icon: <DollarSign size={18} />, page: "fee" },
+    { label: "Appointments", icon: <Calendar size={18} />, page: "appointments" },
+    { label: "Chat", icon: <MessageSquare size={18} />, page: "chat" },
 ];
 
-interface AgentSidebarProps {
+interface ConselorSidebarProps {
     activePage: string;
     onNavigate: (page: string) => void;
 }
 
-export function AgentSidebar({ activePage, onNavigate }: AgentSidebarProps) {
+export function ConselorSidebar({ activePage, onNavigate }: ConselorSidebarProps) {
     const activeLabel =
         menuItems.find((m) => m.page === activePage)?.label ?? activePage;
 
@@ -54,8 +50,17 @@ export function AgentSidebar({ activePage, onNavigate }: AgentSidebarProps) {
                     </button>
                 </div>
 
-                {/* Nav Items (No Role Badge specifically in the design) */}
-                <nav className="flex flex-col py-[16px] overflow-y-auto flex-1 gap-[4px]">
+                {/* Role Badge */}
+                <div className="px-[16px] py-[12px] border-b border-[#f0f0f0]">
+                    <div className="flex items-center gap-[8px]">
+                        <div className="bg-[#F3E8FF] text-[#7E22CE] px-[10px] py-[3px] rounded-full">
+                            <span className="font-['Inter',sans-serif] text-[11px] font-semibold">CONSELOR</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Nav Items */}
+                <nav className="flex flex-col py-[8px] overflow-y-auto flex-1">
                     {menuItems.map((item) => {
                         const isActive = item.label === activeLabel;
                         return (
@@ -63,15 +68,15 @@ export function AgentSidebar({ activePage, onNavigate }: AgentSidebarProps) {
                                 key={item.label}
                                 onClick={() => item.page && onNavigate(item.page)}
                                 className={`flex items-center justify-between px-[16px] py-[10px] text-left transition-colors ${isActive
-                                    ? "bg-[#EFF6FF] text-[#155DFC] font-semibold border-r-2 border-[#155DFC]"
+                                    ? "bg-[#F3E8FF] text-[#9333EA] font-semibold"
                                     : "text-[#6B7280] hover:bg-[#f9fafb] hover:text-[#374151]"
                                     }`}
                             >
                                 <div className="flex items-center gap-[10px]">
-                                    <span className={isActive ? "text-[#155DFC]" : "text-[#9CA3AF]"}>
+                                    <span className={isActive ? "text-[#9333EA]" : "text-[#9CA3AF]"}>
                                         {item.icon}
                                     </span>
-                                    <span className={`font-['Inter',sans-serif] text-[13px] leading-[1.5] ${isActive ? "text-[#155DFC]" : "text-[#6B7280]"}`}>
+                                    <span className="font-['Inter',sans-serif] text-[13px] leading-[1.5]">
                                         {item.label}
                                     </span>
                                 </div>
