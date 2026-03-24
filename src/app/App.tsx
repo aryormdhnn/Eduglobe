@@ -41,6 +41,15 @@ import { StaffLeaveContent } from "./components/staff/StaffLeaveContent";
 import { StaffAttendanceContent } from "./components/staff/StaffAttendanceContent";
 import { StaffClassesContent } from "./components/staff/StaffClassesContent";
 import { StaffAnnouncementContent } from "./components/staff/StaffAnnouncementContent";
+import { StaffProgramContent } from "./components/staff/StaffProgramContent";
+import { StaffStudyPlanContent } from "./components/staff/StaffStudyPlanContent";
+import { StaffEnquiryContent } from "./components/staff/StaffEnquiryContent";
+import { StaffApplicationContent } from "./components/staff/StaffApplicationContent";
+import { StaffPlacementTestContent } from "./components/staff/StaffPlacementTestContent";
+import { StaffEvaluationTestContent } from "./components/staff/StaffEvaluationTestContent";
+import { StaffOfferLetterContent } from "./components/staff/StaffOfferLetterContent";
+import { StaffPaymentContent } from "./components/staff/StaffPaymentContent";
+import { StaffTeachersContent } from "./components/staff/StaffTeachersContent";
 // Teacher pages
 import { TeacherSidebar } from "./components/teacher/TeacherSidebar";
 import { TeacherNavbar } from "./components/teacher/TeacherNavbar";
@@ -59,6 +68,10 @@ import { ConselorSidebar } from "./components/conselor/ConselorSidebar";
 import { ConselorNavbar } from "./components/conselor/ConselorNavbar";
 import { ConselorDashboardContent } from "./components/conselor/ConselorDashboardContent";
 import { ConselorFeeContent } from "./components/conselor/ConselorFeeContent";
+import { ConselorReportsContent } from "./components/conselor/ConselorReportsContent";
+import { ConselorProgramContent } from "./components/conselor/ConselorProgramContent";
+import { ConselorCreateProgramContent } from "./components/conselor/ConselorCreateProgramContent";
+import { ConselorApplyCutiContent } from "./components/conselor/ConselorApplyCutiContent";
 
 const adminPageTitles: Record<string, string> = {
   dashboard: "Dashboard",
@@ -108,12 +121,19 @@ const studentPageTitles: Record<string, string> = {
 
 const staffPageTitles: Record<string, string> = {
   dashboard: "Dashboard",
-  students: "Students",
-  attendance: "Attendance",
+  program: "Program",
   classes: "Classes",
-  invoice: "Invoice",
+  teachers: "Teachers",
+  "study-plan": "Student Study Plan",
+  enquiry: "Enquiry",
+  application: "Application",
+  "placement-test": "Placement Test",
+  students: "Students",
+  "evaluation-test": "Evaluation Test",
+  "offer-letter": "Generate Offer Letter",
+  payment: "Payment",
   announcement: "Announcement",
-  leave: "Leave / Cuti",
+  leave: "Leave Request",
 };
 
 const teacherPageTitles: Record<string, string> = {
@@ -141,8 +161,12 @@ const conselorPageTitles: Record<string, string> = {
   dashboard: "Dashboard",
   students: "Students",
   applications: "Applications",
+  program: "Program Directory",
+  "create-program": "Create New Program",
   fee: "Marketing Fees",
   appointments: "Appointments",
+  reports: "Reports & Analytics",
+  "apply-cuti": "Leave / Cuti",
   chat: "Chat",
 };
 
@@ -248,7 +272,7 @@ export default function App() {
         <>
           <StaffSidebar activePage={staffPage} onNavigate={setStaffPage} />
           <StaffNavbar title={staffPageTitles[staffPage] ?? "Staff"} />
-          <div className="ml-[200px] pt-[64px] p-[24px] bg-[#F9FAFB] min-h-screen">
+          <div className="ml-[250px] pt-[64px] p-[24px] bg-[#F9FAFB] min-h-screen">
             {staffPage === "dashboard" && <StaffDashboardContent />}
             {staffPage === "students" && <StaffStudentContent />}
             {staffPage === "attendance" && <StaffAttendanceContent />}
@@ -256,6 +280,20 @@ export default function App() {
             {staffPage === "invoice" && <StaffInvoiceContent />}
             {staffPage === "announcement" && <StaffAnnouncementContent />}
             {staffPage === "leave" && <StaffLeaveContent />}
+            {staffPage === "program" && <StaffProgramContent />}
+            {staffPage === "study-plan" && <StaffStudyPlanContent />}
+            {staffPage === "enquiry" && <StaffEnquiryContent />}
+            {staffPage === "application" && <StaffApplicationContent />}
+            {staffPage === "placement-test" && <StaffPlacementTestContent />}
+            {staffPage === "evaluation-test" && <StaffEvaluationTestContent />}
+            {staffPage === "offer-letter" && <StaffOfferLetterContent />}
+            {staffPage === "payment" && <StaffPaymentContent />}
+            {staffPage === "teachers" && <StaffTeachersContent />}
+            {!(["dashboard", "students", "attendance", "classes", "invoice", "announcement", "leave", "program", "study-plan", "enquiry", "application", "placement-test", "evaluation-test", "offer-letter", "payment", "teachers"].includes(staffPage)) && (
+              <div className="bg-white rounded-[16px] border border-[#F3F4F6] p-[32px] min-h-[400px] flex items-center justify-center shadow-sm">
+                <p className="font-['Inter',sans-serif] text-[16px] text-[#9CA3AF]">Coming soon — {staffPageTitles[staffPage] ?? staffPage}</p>
+              </div>
+            )}
           </div>
         </>
       ) : role === "teacher" ? (
@@ -293,11 +331,15 @@ export default function App() {
           <ConselorNavbar title={conselorPageTitles[conselorPage] ?? "Dashboard"} />
           <div className="ml-[200px] pt-[64px] p-[24px] bg-[#FAFAFA] min-h-screen">
             {conselorPage === "dashboard" && <ConselorDashboardContent />}
+            {conselorPage === "program" && <ConselorProgramContent onCreateProgram={() => setConselorPage("create-program")} />}
+            {conselorPage === "create-program" && <ConselorCreateProgramContent onBack={() => setConselorPage("program")} />}
             {conselorPage === "fee" && <ConselorFeeContent />}
-            {!(["dashboard", "fee"].includes(conselorPage)) && (
-              <div className="bg-white rounded-[16px] border border-[#F3F4F6] p-[32px] min-h-[400px] flex items-center justify-center shadow-sm">
-                <p className="font-['Inter',sans-serif] text-[16px] text-[#9CA3AF]">Coming soon — {conselorPageTitles[conselorPage] ?? conselorPage}</p>
-              </div>
+            {conselorPage === "reports" && <ConselorReportsContent />}
+            {conselorPage === "apply-cuti" && <ConselorApplyCutiContent />}
+            {!(["dashboard", "program", "create-program", "fee", "reports", "apply-cuti"].includes(conselorPage)) && (
+                <div className="bg-white rounded-[16px] border border-[#F3F4F6] p-[32px] min-h-[400px] flex items-center justify-center shadow-sm">
+                  <p className="font-['Inter',sans-serif] text-[16px] text-[#9CA3AF]">Coming soon — {conselorPageTitles[conselorPage] ?? conselorPage}</p>
+                </div>
             )}
           </div>
         </>

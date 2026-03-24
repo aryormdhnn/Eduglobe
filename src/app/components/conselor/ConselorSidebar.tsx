@@ -8,6 +8,9 @@ import {
     DollarSign,
     Settings,
     ChevronRight,
+    PieChart,
+    BookOpen,
+    CalendarDays,
 } from "lucide-react";
 
 interface MenuItem {
@@ -21,8 +24,11 @@ const menuItems: MenuItem[] = [
     { label: "Dashboard", icon: <LayoutDashboard size={18} />, page: "dashboard" },
     { label: "Students", icon: <Users size={18} />, page: "students" },
     { label: "Applications", icon: <FileText size={18} />, page: "applications" },
+    { label: "Program", icon: <BookOpen size={18} />, page: "program" },
     { label: "Fee", icon: <DollarSign size={18} />, page: "fee" },
     { label: "Appointments", icon: <Calendar size={18} />, page: "appointments" },
+    { label: "Reports", icon: <PieChart size={18} />, page: "reports" },
+    { label: "Apply Cuti", icon: <CalendarDays size={18} />, page: "apply-cuti" },
     { label: "Chat", icon: <MessageSquare size={18} />, page: "chat" },
 ];
 
